@@ -10,4 +10,4 @@ frontend
 - npx tailwindcss init -p
 
 backend
-- npm i express
+- npm i express-generator --no-view
