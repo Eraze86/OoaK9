@@ -8,6 +8,11 @@ frontend
 - npx create-react-app frontend --template=typescript
 - npm install -D tailwindcss postcss autoprefixer
 - npx tailwindcss init -p
+- npm i react-router-dom
 
 backend
 - npm i express-generator --no-view
+
+#Get started
+Frontend - npm start
+backend - nodemon start
