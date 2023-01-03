@@ -20,8 +20,8 @@ root.render(
     <Routes>
       <Route path="/" element={<Layout/>}>
       <Route index element={<Home/>}/>
-      <Route path="/Om-mig" element={<About/>}/>
-      <Route path="/Kontakta" element={<Contact/>}/>
+      <Route path="/om-mig" element={<About/>}/>
+      <Route path="/kontakta" element={<Contact/>}/>
       <Route path="/privat-coaching" element={<Private/>}/>
       <Route path="/kurser" element={<Courses/>}/>
       </Route>
