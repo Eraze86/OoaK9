@@ -1,6 +1,6 @@
-import Img1 from "../../public/img/headerimg.jpg";
-import Img2 from "../../public/img/headerimg.jpg";
-import Img3 from "../../public/img/headerimg.jpg";
+import Img1 from "../img/headerimg.jpg";
+import Img2 from "../img/headerimg.jpg";
+import Img3 from "../img/headerimg.jpg";
 
 export function Home() {
   return (
