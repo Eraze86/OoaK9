@@ -5,8 +5,8 @@ import Img3 from "../img/headerimg.jpg";
 export function Home() {
   return (
     <>
-      <section className="flex m-24">
-        <article className="w-2/3 mr-8">
+      <section className="flex flex-col md:flex-row justify-between">
+        <article className=" md:w-2/4">
           <h1>Header 1</h1>
           <span>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -24,7 +24,7 @@ export function Home() {
          <button>Boka privat coaching</button>
         </article>
       </section>
-      <section className=" w-full flex items-center justify-around ">
+      <section className="flex flex-wrap items-center justify-between ">
       <img className="smalimg" src={Img1}/>
       <img className="smalimg"  src={Img2}/>
       <img className="smalimg"  src={Img3}/>

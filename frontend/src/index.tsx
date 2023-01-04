@@ -24,6 +24,7 @@ root.render(
       <Route path="/kontakta" element={<Contact/>}/>
       <Route path="/privat-coaching" element={<Private/>}/>
       <Route path="/kurser" element={<Courses/>}/>
+      <Route path="/policy" element={<Courses/>}/>
       </Route>
     </Routes>
   </BrowserRouter>
