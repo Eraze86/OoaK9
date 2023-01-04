@@ -6,7 +6,7 @@ export function Home() {
   return (
     <>
       <section className="flex flex-col md:flex-row justify-between">
-        <article className=" md:w-2/4">
+        <article className=" p-2 md:w-2/4">
           <h1>Header 1</h1>
           <span>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -18,13 +18,13 @@ export function Home() {
             culpa qui officia deserunt mollit anim id est laborum.
           </span>
         </article>
-        <article className="flex flex-col">
+        <article className="flex flex-col p-2">
          <button>Boka kurs</button>
          <button>Om mig</button>
          <button>Boka privat coaching</button>
         </article>
       </section>
-      <section className="flex flex-wrap items-center justify-between ">
+      <section className="flex flex-col lg:flex-row items-center justify-between ">
       <img className="smalimg" src={Img1}/>
       <img className="smalimg"  src={Img2}/>
       <img className="smalimg"  src={Img3}/>

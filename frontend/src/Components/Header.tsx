@@ -10,8 +10,8 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <header className="h-[50vh] md:h-[80vh] w-full ">
-        <nav className="hidden md:block bg-white h-24 z-10 relative">
+      <header className="h-[50vh] lg:h-[80vh] w-full ">
+        <nav className="hidden lg:block bg-white h-24 z-10 relative">
           <div className="flex h-full items-center w-full justify-center">
             <Link className="links" to="/">Hem</Link>
             <Link className="links" to="/privat-coaching">Privat coaching</Link>
@@ -23,10 +23,10 @@ export function Header() {
           </div>
         </nav>
 
-        <nav className="md:hidden flex justify-between items-center bg-white h-16 z-10 relative">
+        <nav className="lg:hidden flex justify-between items-center bg-white h-16 z-10 relative">
           <img src={logoDog} className="h-full" />
           <img src={logoText} className="h-2/3" />
-          <div onClick={() => setIsOpen(true)} className=" mr-3 h-9 z-10 p-1 border rounded ">
+          <div onClick={() =>  setIsOpen(!isOpen)} className=" mr-3 h-9 z-10 p-1 border rounded ">
             <span className="line"></span>
             <span className="line"></span>
             <span className="line"></span>
@@ -34,7 +34,7 @@ export function Header() {
         </nav>
 
         {isOpen && <>
-          <div className=" bg-white flex flex-col absolute right-0 top-12 w-44 ">
+          <div className=" bg-white flex flex-col absolute z-10 right-0 top-14 w-44 ">
             <Link className="links" to="/">Hem</Link>
             <Link className="links" to="/privat-coaching">Privat coaching</Link>
             <Link className="links" to="/kurser">Kurser</Link>
@@ -43,7 +43,7 @@ export function Header() {
             <Link className="links" to="/">Policy</Link>
           </div>
         </>}
-        <img className="absolute top-0 h-3/6 md:h-5/6 w-full object-cover" src={HeaderImg} />
+        <img className="absolute top-0 h-3/6 lg:h-5/6 w-full object-cover" src={HeaderImg} />
       </header>
     </>
   );
