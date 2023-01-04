@@ -21,10 +21,10 @@ export function Header() {
           </div>
           </nav>
 
-          <nav className="md:hidden  bg-white h-24 z-10 relative">
+          <nav className="md:hidden  bg-white h-16 z-10 relative">
           <img src={logoimg} className="h-full absolute left-0" />
           
-        <div onClick={() => setIsOpen(true)}className="absolute top-6 right-6 z-10 w-8 h-8">
+        <div onClick={() => setIsOpen(true)} className="absolute top-3 right-6 z-10 p-1 border rounded ">
           <span className="line"></span>
           <span className="line"></span>
           <span className="line"></span>
