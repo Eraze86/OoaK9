@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import HeaderImg from "../img/headerimg.jpg";
-import logoimg from "../img/logo.png";
+import HeaderImg from "../../public/img/headerimg.jpg";
+import logoimg from "../../public/img/logo.png";
 
 export function Header() {
 
