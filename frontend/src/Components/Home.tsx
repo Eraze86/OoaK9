@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Img1 from "../img/headerimg.jpg";
 import Img2 from "../img/headerimg.jpg";
 import Img3 from "../img/headerimg.jpg";
@@ -19,9 +20,9 @@ export function Home() {
           </span>
         </article>
         <article className="flex flex-col p-2">
-         <button>Boka kurs</button>
-         <button>Om mig</button>
-         <button>Boka privat coaching</button>
+         <button><Link to="/kurser">Boka kurs</Link></button>
+         <button><Link to="/om-mig">Om mig</Link></button>
+         <button><Link to="/privat-coaching">Boka privat coaching</Link></button>
         </article>
       </section>
       <section className="flex flex-col lg:flex-row items-center justify-between ">

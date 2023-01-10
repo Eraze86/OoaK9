@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Kurs 1",
+    "price": 1000,
+    "img": "/img/DSC_0082-2-1.jpg",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    "date": ["23 januari kl 18:00", "8 februari kl 17:00", "3 mars kl 13:00"]
+  },
+  {
+    "id": 2,
+    "name": "Kurs 2",
+    "price": 2000,
+    "img": "/img/DSC_0082-1.jpg",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    "date": ["23 januari kl 18:00", "8 februari kl 17:00", "3 mars kl 13:00"]
+  },
+  {
+    "id": 3,
+    "name": "Kurs 3",
+    "price": 3000,
+    "img": "/img/DSC_0087-1.jpg",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+    "date": ["23 januari kl 18:00", "8 februari kl 17:00", "3 mars kl 13:00"]
+  }
+]

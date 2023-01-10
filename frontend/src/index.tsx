@@ -10,6 +10,7 @@ import { About } from './Components/About';
 import { Private } from './Components/Private';
 import { Contact } from './Components/Contact';
 import { Courses } from './Components/Courses';
+import { Policy } from './Components/Policy';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -24,7 +25,7 @@ root.render(
       <Route path="/kontakta" element={<Contact/>}/>
       <Route path="/privat-coaching" element={<Private/>}/>
       <Route path="/kurser" element={<Courses/>}/>
-      <Route path="/policy" element={<Courses/>}/>
+      <Route path="/policy" element={<Policy/>}/>
       </Route>
     </Routes>
   </BrowserRouter>
