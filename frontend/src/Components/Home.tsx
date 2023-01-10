@@ -6,7 +6,7 @@ import Img3 from "../img/headerimg.jpg";
 export function Home() {
   return (
     <>
-      <section className="flex flex-col md:flex-row justify-between">
+      <section className="flex flex-col md:flex-row md:justify-between">
         <article className=" p-2 md:w-2/4">
           <h1>Header 1</h1>
           <span>
@@ -20,9 +20,9 @@ export function Home() {
           </span>
         </article>
         <article className="flex flex-col p-2">
-         <button><Link to="/kurser">Boka kurs</Link></button>
-         <button><Link to="/om-mig">Om mig</Link></button>
-         <button><Link to="/privat-coaching">Boka privat coaching</Link></button>
+        <Link to="/kurser"><button>Boka kurs</button></Link>
+        <Link to="/om-mig"><button>Om mig</button></Link>
+        <Link to="/privat-coaching"><button>Boka privat coaching</button></Link>
         </article>
       </section>
       <section className="flex flex-col lg:flex-row items-center justify-between ">

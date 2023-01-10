@@ -3,8 +3,8 @@ import AbouteImg from "../img/DSC_0102-1.jpg";
 export function About(){
 
     return(<>
-     <section>
-        <article>
+     <section className="md:flex">
+        <article className=" p-2 md: w-3/4 md:pr-8">
         <h1>Om mig</h1>
         <span>  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -32,8 +32,8 @@ export function About(){
             </span>
             </article>
 
-            <article>
-                <img src={AbouteImg}/>
+            <article className=" p-2 md:w-1/4 md:pt-16">
+                <img className="" src={AbouteImg}/>
             </article>
             </section>
     </>)
