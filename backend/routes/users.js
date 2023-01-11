@@ -3,7 +3,9 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send("home")
+  // res.sendFile(path [, options] [, fn])
+  console.log(__dirname)
 });
 
 module.exports = router;
