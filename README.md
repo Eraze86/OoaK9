@@ -12,7 +12,7 @@ frontend
 
 backend
 - npm i express-generator --no-view
-
+- npm install mongodb
 
 #Get started
 Frontend - npm start
