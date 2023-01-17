@@ -13,7 +13,11 @@ frontend
 backend
 - npm i express-generator --no-view
 - npm install mongodb
+- npm install mongoose
 
 #Get started
-Frontend - npm start
-backend - nodemon start
+
+Frontend 
+- npm start
+backend 
+- nodemon start
