@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var mediaRouter = require('./routes/media');
 var bookingsRouter = require('./routes/bookings');
+var coursesRouter = require('./routes/courses');
 var app = express();
 
 const mongoose = require("mongoose")
@@ -43,5 +44,6 @@ app.use('/', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/bookings', bookingsRouter);
 app.use('/media', mediaRouter);
+app.use('/courses', coursesRouter);
 
 module.exports = app;

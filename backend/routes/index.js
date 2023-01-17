@@ -5,8 +5,14 @@ var path = require('path');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
-  next()
+  // res.render('index');
+  let login = 
+  '<div id="logindiv"><form><label>Användarnamn:</label><input id="user"/>' +
+  '<label>Lösenord:</label><input id="password"/>' +
+  '</form><button id="loginbtn" class="logbtn ">Logga in</button></div>'
+  res.send(login)
+  console.log("loggin html",login)
+
  
 });
 
