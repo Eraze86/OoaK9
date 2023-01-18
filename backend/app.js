@@ -4,7 +4,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var adminRouter = require('./routes/admin');
 var mediaRouter = require('./routes/media');
 var bookingsRouter = require('./routes/bookings');
 var coursesRouter = require('./routes/courses');
@@ -39,14 +38,7 @@ function init(){
 init()
 // Lösenord: vTAm4ylx245Gk1kM
 
-// const MongoClient = require ("mongodb").MongoClient
-// MongoClient.connect("mongodb://127.0.0.1:27017",  {
-//     useUnifiedTopology: true
-// })
-// .then(client => {console.log("funkar")
-// const db = client.db("newLetter")
-// app.locals.db = db;
-// })
+
 console.log("funkar databasen?",mongoose.connection.readyState)
 
 app.use(logger('dev'));
@@ -56,7 +48,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/admin', adminRouter);
+
 app.use('/bookings', bookingsRouter);
 app.use('/media', mediaRouter);
 app.use('/courses', coursesRouter);

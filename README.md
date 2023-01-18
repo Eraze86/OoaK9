@@ -14,7 +14,7 @@ backend
 - npm i express-generator --no-view
 - npm install mongodb
 - npm install mongoose
-- npm i pug
+
 
 #Get started
 
