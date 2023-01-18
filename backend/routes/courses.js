@@ -8,17 +8,7 @@ const cours = require("../courses.json")
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
-  console.log("kurser ",cours)
-  let printCourse = cours.map(course => { 
-  return
-    Name: course
-  })
-  res.render("courses",{ printCourse})
-console.log("syns kurserna?", printCourse)
-});
-router.get('/c', async function(req, res, next) {
   res.send(cours)
-
 });
 
 router.post('/', async function(req, res, next) {

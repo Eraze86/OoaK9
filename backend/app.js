@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+var adminRouter = require('./routes/admin');
 var mediaRouter = require('./routes/media');
 var bookingsRouter = require('./routes/bookings');
 var coursesRouter = require('./routes/courses');
@@ -47,8 +47,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-
+app.use('/', adminRouter);
 app.use('/bookings', bookingsRouter);
 app.use('/media', mediaRouter);
 app.use('/courses', coursesRouter);
