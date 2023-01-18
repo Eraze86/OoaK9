@@ -12,7 +12,7 @@ export function Courses() {
     useEffect(() => {
 
 
-        fetch("courses.json")
+        fetch("http://localhost:3001/courses/c")
 
             .then(response => response.json())
             .then(data => {

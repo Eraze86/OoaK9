@@ -10,10 +10,12 @@ var bookingsRouter = require('./routes/bookings');
 var coursesRouter = require('./routes/courses');
 var app = express();
 
+app.set("views", path.join(__dirname, "views"))
+app.set("view engine", "pug")
 const mongoose = require("mongoose")
 // const MongoClient = require ("mongodb").MongoClient
 
-//connect mongodb server
+// // connect mongodb server
 // MongoClient.connect("mongodb://127.0.0.1:27017",  {
 //     useUnifiedTopology: true
 // })
@@ -22,17 +24,30 @@ const mongoose = require("mongoose")
 // app.locals.db = db;
 // })
 
- function init() {
+function init(){
     try {
         const options = mongoose.set('strictQuery', false)
-        mongoose.connect("mongodb://127.0.0.1:27017", options, () => console.log("databas is connected")) 
-        
+  
+ mongoose.connect("mongodb+srv://eraze86:vTAm4ylx245Gk1kM@ooak9.utw3gt2.mongodb.net/ooak9", 
+ options, () => console.log("databas is connected")) 
+         
     } catch (error) {
         console.log("database error", error)
     }
     
 }
 init()
+// Lösenord: vTAm4ylx245Gk1kM
+
+// const MongoClient = require ("mongodb").MongoClient
+// MongoClient.connect("mongodb://127.0.0.1:27017",  {
+//     useUnifiedTopology: true
+// })
+// .then(client => {console.log("funkar")
+// const db = client.db("newLetter")
+// app.locals.db = db;
+// })
+console.log("funkar databasen?",mongoose.connection.readyState)
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -45,5 +60,6 @@ app.use('/admin', adminRouter);
 app.use('/bookings', bookingsRouter);
 app.use('/media', mediaRouter);
 app.use('/courses', coursesRouter);
+
 
 module.exports = app;

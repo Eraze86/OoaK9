@@ -1,10 +1,10 @@
 const mongoose = require("mongoose")
 
-const courseSchema = mongoose.Schema({
+const CourseSchema = mongoose.Schema({
     name: String,
     price: Number,
     img: String,
     description: String,
-    date: []
+    date: [String]
 })
-module.exports = mongoose.model("cours", courseSchema)
+module.exports = mongoose.model("cours", CourseSchema)

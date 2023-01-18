@@ -5,8 +5,7 @@ var path = require('path');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-
-  res.sendFile(path.join(__dirname, "../public/bookings.html"));
+res.render("booking")
 });
 
 module.exports = router;
