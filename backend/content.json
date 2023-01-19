@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "name": "Första sidan",
     "text": "Lorum ipsum",
     "Img": [
@@ -9,6 +10,7 @@
     ]
   },
   {
+    "id": 2,
     "name": "Om mig",
     "text": "Lorum ipsum",
     "Img": [
@@ -16,11 +18,13 @@
     ]
   },
   {
+    "id": 3,
     "name": "Private coaching",
     "text": "Lorum ipsum",
     "Img": []
   },
   {
+    "id": 4,
     "name": "Policy",
     "text": "Lorum ipsum",
     "Img": []
