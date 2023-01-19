@@ -9,7 +9,7 @@ frontend
 - npm install -D tailwindcss postcss autoprefixer
 - npx tailwindcss init -p
 - npm i react-router-dom
-
+- npm i axios
 backend
 - npm i express-generator --no-view
 - npm install mongodb
