@@ -20,12 +20,12 @@ export function Home() {
           </span>
         </article>
         <article className="flex flex-col p-2">
-        <Link to="/kurser"><button>Boka kurs</button></Link>
-        <Link to="/om-mig"><button>Om mig</button></Link>
-        <Link to="/privat-coaching"><button>Boka privat coaching</button></Link>
+        <Link to="/kurser"><button className="h-14">Boka kurs</button></Link>
+        <Link to="/om-mig"><button className="h-14">Om mig</button></Link>
+        <Link to="/privat-coaching"><button className="h-14">Boka privat coaching</button></Link>
         </article>
       </section>
-      <section className="flex flex-col lg:flex-row items-center justify-between ">
+      <section className="flex flex-col lg:flex-row items-center justify-between  ">
       <img className="smalimg" src={Img1}/>
       <img className="smalimg"  src={Img2}/>
       <img className="smalimg"  src={Img3}/>

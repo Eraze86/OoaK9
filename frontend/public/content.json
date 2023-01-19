@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Första sidan",
+    "text": "Lorum ipsum",
+    "Img": [
+      "/img/DSC_0082-2-1.jpg",
+      "/img/DSC_0082-2-1.jpg",
+      "/img/DSC_0082-2-1.jpg"
+    ]
+  },
+  {
+    "name": "Om mig",
+    "text": "Lorum ipsum",
+    "Img": [
+      "/img/DSC_0082-2-1.jpg"
+    ]
+  },
+  {
+    "name": "Private coaching",
+    "text": "Lorum ipsum",
+    "Img": []
+  },
+  {
+    "name": "Policy",
+    "text": "Lorum ipsum",
+    "Img": []
+  }
+]
