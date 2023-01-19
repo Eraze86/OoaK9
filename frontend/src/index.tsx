@@ -16,6 +16,7 @@ import { ChangeCourses } from './Components/admin/ChangeCourses';
 import { Media } from './Components/admin/Media';
 import { Admin } from './Components/admin/Admin';
 import { Login } from './Components/admin/Login';
+import { Content } from './Components/admin/Content';
 
 
 const root = ReactDOM.createRoot(
@@ -39,6 +40,7 @@ root.render(
       <Route path="/ooak9/hantera-kurser" element={<ChangeCourses/>}/>
       <Route path="/ooak9/bokningar" element={<Booking/>}/>
       <Route path="/ooak9/media" element={<Media/>}/>
+      <Route path="/ooak9/:id" element ={<Content />}></Route>
 
       </Route>
     </Routes>
