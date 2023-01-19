@@ -5,6 +5,7 @@ export function LayoutAdmin() {
     const [userLogin, setUserLogin] = useState(false)
 function logIn(){
     axios.post("http://localhost:3001/courses")
+    .then(response => console.log("hämtad data", response))
 }
 
     return (<>
