@@ -28,19 +28,7 @@ section{
   
 
 }
-#logindiv{
-  width: 10rem;
-  height: 10rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 auto;
-  margin-top: 4rem;
-  border-radius: 1rem;
-  padding: 2rem;
-  background-color: #A6A7AA;
 
-}
 .logbtn{
   width: 6rem;
   margin: 0;
