@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 // import apiCours from "../../courses.json"
-import { ICourses } from "./module/courses"
+import { ICourses } from "./module/ICourses"
 // import { jsonCours } from "../../public/courses.json"
 
 export function Courses() {

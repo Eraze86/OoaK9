@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './Components/Layout';
@@ -12,10 +11,11 @@ import { Contact } from './Components/Contact';
 import { Courses } from './Components/Courses';
 import { Policy } from './Components/Policy';
 import { LayoutAdmin } from './Components/admin/LayoutAdmin';
-import { Admin } from './Components/admin/Admin';
 import { Booking } from './Components/admin/Booking';
 import { ChangeCourses } from './Components/admin/ChangeCourses';
 import { Media } from './Components/admin/Media';
+import { Admin } from './Components/admin/Admin';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
