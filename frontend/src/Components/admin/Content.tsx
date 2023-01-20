@@ -4,46 +4,38 @@ import { IContent } from "../module/IContent";
 
 export function Content() {
 
-    const [contentId, setContentId] = useState("")
+    const [contentId, setContentId] = useState(0)
     const [content, setContent] = useState<IContent[]>([])
 
     //get params, save to hook
     let params = useParams();
 
     useEffect(() => {
-        if (params.id) setContentId(params.id);
-    }, []);
+        if (params.id) setContentId(+params.id);
+    }, [contentId]);
 
     useEffect(() => {
         //save content id to hook, if params and localstorage is the same
         let local = localStorage.getItem("content")
         if (local) {
-            let localParse = JSON.parse(local)
-
-            // varför hämtar den inte och sparar id:et? titta vidare på detta. Hittar alla iden men
-            //vill inte spara 
-            for (let i = 0; i < localParse.length; i++) {
-               
-                if(localParse[i].id === params.id){
-                    console.log("local id", localParse[i].id , "param", params.id)
-                    
-                setContent(JSON.parse(localParse[i].id))
-                }
-             
+                setContent(JSON.parse(local))
             }
    
             
-        }
-    }, [contentId]);
+        
+    }, []);
     console.log("localstorage", content)
+   
     let contentImg = content.map((con: IContent) => {
+
+      if(con.id === contentId)
         return (<>
-            {con.img}</>)
+            <div key={con.id}>{con.img}</div></>)
     })
 
     let showContent = content.map((con: IContent) => {
-     
-        return (<><section>
+        if(con.id === contentId)
+        return (<><section key={con.id}>
             <article>
                 <p>Namn:</p>{con.name}
                 <input />
