@@ -17,6 +17,7 @@ import { Media } from './Components/admin/Media';
 import { Admin } from './Components/admin/Admin';
 import { Login } from './Components/admin/Login';
 import { Content } from './Components/admin/Content';
+import { BookCourse } from './Components/Book-course';
 
 
 const root = ReactDOM.createRoot(
@@ -32,6 +33,7 @@ root.render(
       <Route path="/kontakta" element={<Contact/>}/>
       <Route path="/privat-coaching" element={<Private/>}/>
       <Route path="/kurser" element={<Courses/>}/>
+      <Route path="/:id" element ={<BookCourse />}></Route>
       <Route path="/policy" element={<Policy/>}/>
       </Route>
       <Route path="/admin" element={<Login/>}/>

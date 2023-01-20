@@ -5,7 +5,20 @@
     "price": 1000,
     "img": "/img/DSC_0082-2-1.jpg",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-    "date": ["23 januari kl 18:00", "8 februari kl 17:00", "3 mars kl 13:00"]
+    "dates": [
+      {
+        "date": "23 januari kl 18:00",
+        "number": 4
+      },
+      {
+        "date": "8 februari kl 17:00",
+        "number": 1
+      },
+      {
+        "date": "3 mars kl 13:00",
+        "number": 3
+      }
+    ]
   },
   {
     "id": 2,
@@ -13,7 +26,20 @@
     "price": 2000,
     "img": "/img/DSC_0082-1.jpg",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-    "date": ["23 januari kl 18:00", "8 februari kl 17:00", "3 mars kl 13:00"]
+    "date": [
+      {
+        "date": "23 januari kl 18:00",
+        "number": 4
+      },
+      {
+        "date": "8 februari kl 17:00",
+        "number": 1
+      },
+      {
+        "date": "3 mars kl 13:00",
+        "number": 3
+      }
+    ]
   },
   {
     "id": 3,
@@ -21,6 +47,19 @@
     "price": 3000,
     "img": "/img/DSC_0087-1.jpg",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-    "date": ["23 januari kl 18:00", "8 februari kl 17:00", "3 mars kl 13:00"]
+    "date": [
+      {
+        "date": "23 januari kl 18:00",
+        "number": 4
+      },
+      {
+        "date": "8 februari kl 17:00",
+        "number": 1
+      },
+      {
+        "date": "3 mars kl 13:00",
+        "number": 3
+      }
+    ]
   }
 ]

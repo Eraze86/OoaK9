@@ -23,8 +23,13 @@
   section{
     @apply m-2 lg:mx-24 lg:my-12
   }
- 
+ input{
+    @apply border w-96
+  }
   
+label{
+    @apply text-sm py-2
+  }
 }
 
 @tailwind components;
