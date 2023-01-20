@@ -21,7 +21,7 @@
     @apply text-base leading-6 
   }
   section{
-    @apply m-2 lg:mx-24 lg:my-12
+    @apply m-2 lg:mx-36 lg:my-12
   }
  input{
     @apply border w-96

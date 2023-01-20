@@ -32,17 +32,17 @@ export function Login(){
     <header className="h-24">
             <img className="h-full" src={logoImg}/>
         </header>
-     <div className="m-auto justify-center mt-24 p-4 bg-sec-light w-72 h-52 rounded">
+     <div className="m-auto justify-center mt-24 p-4 bg-sec-light w-72  rounded">
                 <form className="flex flex-col">
                     <label>Användarnamn:</label>
-                    <input type="text" onChange={handleChange} name="username" value={user.username} />
+                    <input className="w-full" type="text" onChange={handleChange} name="username" value={user.username} />
                     <label>Lösenord:</label>
-                    <input type="text" onChange={handleChange} name="password" value={user.password}/>
+                    <input className="w-full" type="text" onChange={handleChange} name="password" value={user.password}/>
                 
                 </form>
-                <button onClick={logIn} className="w-48 h-10 mb-1">Logga in</button><br/>
-                <a className="text-[12px] mr-2">lösenordet?</a>
-                <a className="text-[12px]">användarnamnet?</a>
+                <button onClick={logIn} className="w-48  mb-1">Logga in</button><br/>
+                <a className="text-[12px] mr-2">lösenord?</a>
+                <a className="text-[12px]">användarnamn?</a>
             </div>
             {wrong && <>
             <div>

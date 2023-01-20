@@ -1,15 +1,13 @@
-
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { ICourses } from "./module/ICourses"
 import courseImg from "../img/11.jpg"
 
-
 export function BookCourse() {
 
     const [courses, setCourses] = useState<ICourses[]>([])
     const [courseId, setCourseId] = useState(0)
-    const [courseDate, setCourseDate] = useState<ICourses[]>([])
+    const [courseDate, setCourseDate] = useState(false)
     let params = useParams();
 
     useEffect(() => {
@@ -24,36 +22,31 @@ export function BookCourse() {
             setCourses(JSON.parse(local))
         }
     }, []);
-    console.log("localstorage", courses)
-    // let showDates = courses.map((course: ICourses) => {
-    //     if (course.id === courseId)
-    //         // course.dates
-    //         console.log("datum", course.dates)
-    // })
-    
+
     let showBooking = courses.map((course: ICourses) => {
         if (course.id === courseId)
-        // let hej = course.dates.map((date, i) =>{
-        //     return(<>
-        //     <div>
-        //         {date.date}</div></>)
-        // })
             return (<>
-
                 <article key={course.id} className="mx-12" >
-                    <h1 className="">Boking</h1>
+                    <h1 className="mt-0">Boking</h1>
                     <div>
+                        <h5 className="py-2">Kursen:{course.name}</h5>
+                        <h5 className="py-2">Pris:{course.price} kr </h5>
+                        <div className="flex py-2"><h5>Datum:</h5><div className="px-4">
+                            <button className="bg-white m-0 px-2 py-0 font-light h-8 border rounded" onClick={() => setCourseDate(!courseDate)}>Välj datum</button>
+                            {courseDate && <>
 
-                        <h5>Kursen:{course.name}</h5>
-                        <h5>Pris:{course.price} kr </h5>
-                        <h5>Datum:</h5><div>
-                        { course.dates.map((d, i:number) => <div>
-            <h3>{d.date}</h3>
-            <h3>{d.number}</h3>
-            </div>)}
+                                {course.dates.map((d, i: number) =>
+                                    <div>
 
-                        </div> 
-
+                                        <ul>
+                                            <li className="flex w-72 justify-between pl-2">
+                                                <p>{d.date}</p><p> {"(antal platser: " + d.number + ")"} </p>
+                                            </li>
+                                        </ul>
+                                    </div>)}
+                            </>}
+                        </div>
+                        </div>
                     </div>
 
 
@@ -91,7 +84,7 @@ export function BookCourse() {
 
             {showBooking}
             <article className="">
-                <img src={courseImg} />
+                <img className="px-24" src={courseImg} />
             </article>
         </section>
 
