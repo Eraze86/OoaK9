@@ -1,22 +1,23 @@
-import { IUsers } from "../module/IUsers";
-
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { IContent } from "../module/IContent";
 
 export function Admin() {
 
+//Get data and save in in a hook, save to local storage
 const [content, setContent] = useState<IContent[]>([])
 useEffect(() => {
     axios.get<IContent[]>("http://localhost:3001/content")
-    .then(response => 
-        setContent(response.data))     
+    .then((response) => {    
+        setContent(response.data) 
+        localStorage.setItem("content", JSON.stringify(response.data))
+    })   
 },[])
-console.log("datan:", content)
 
-let edit = content.map((con, i:number) => {
-    let conLink = `/ooak9/${con.name}`;
+//map content out, add a param to each
+let printContent = content.map((con, i:number) => {
+    let conLink = `/ooak9/${con.id}`;
     return(<>
  
  <Link className="mr-2" key={i} to={conLink}><button>{con.name}</button></Link>
@@ -35,7 +36,7 @@ let edit = content.map((con, i:number) => {
 
       
         <article className="flex w-full flex-wrap">   
-            {edit}</article>
+            {printContent}</article>
             </section>
     
     </>)
