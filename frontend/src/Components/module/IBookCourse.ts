@@ -1,12 +1,12 @@
 export interface IBookCourse{
     course: string,
     price: number,
-    date: Date,
+    date: string,
     name: string,
     phone: number,
     mail: string,
     breed: string,
     age: string, 
     messenge: string, 
-    grpd: boolean
+    gdpr: boolean
     }
