@@ -6,9 +6,9 @@ import { IBookCourse } from "./module/IBookCourse";
 import axios from "axios";
 
 export function BookCourse() {
-    // todo, lägga till datum och all info i en bokning.
+
     //lägga in att antal platser minskar, visa att platserna är slut men kan boka som reserv
-    //typ 2 styken. efter det försvinner datumet. Ska läggas in som reserv i systemet med. 
+    //typ 2 stycken. efter det försvinner datumet. Ska läggas in som reserv i systemet med. 
     //fixa gdpr så det kommer med i bookningen
 
 
@@ -32,23 +32,44 @@ export function BookCourse() {
             setCourses(JSON.parse(local))
         }
     }, []);
-function handleDate( e:any ){
-    let uppdate = ({ ...bookCourse, date: e})
-    setBookCourse(uppdate)
-    console.log("eller?", uppdate)
-}
+    //take the date from select option and set it in booking
+    function handleDate(e: any) {
+        let uppdate = ({ ...bookCourse, date: e })
+        setBookCourse(uppdate)
+    }
 
+    //check if gdpr is checked. if false, set true. else set false
+    function addGdpr() {
+        setGdpr(!gdpr)
+        if (gdpr === false) {
+            let uppdate = ({ ...bookCourse, gdpr: true })
+            setBookCourse(uppdate)
+            console.log("gdpr", uppdate)
+        } else {
+            let uppdate = ({ ...bookCourse, gdpr: false })
+            setBookCourse(uppdate)
+            console.log("gdpr", uppdate)
+        }
+    }
+//look for changes in the form, set in booking. 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         let name = e.target.name
         let uppdate = ({ ...bookCourse, [name]: e.target.value })
         setBookCourse(uppdate)
     }
+//if gdpr is checked, and all the required is filled in, send the booking    
     function sendBooking() {
-// axios.post<IBookCourse>("http://localhost:3001/courses")
-// .then((response) => {    
-//    console.log(response.data)
+        if (gdpr === true) {
+            console.log("gdpr är ikryssad")
 
-// })   
+        } else {
+            console.log("gdpr är false")
+        }
+        // axios.post<IBookCourse>("http://localhost:3001/courses")
+        // .then((response) => {    
+        //    console.log(response.data)
+
+        // })   
 
         console.log("skicka boking", bookCourse)
     }
@@ -61,24 +82,24 @@ function handleDate( e:any ){
                 <article key={course.id}>
                     <div>
                         <h4 className="py-2">{course.name}</h4>
-                     
+
                         <h5 className="">Beskrivning:</h5> <h6>{course.description} </h6>
                         <h5 className="py-2">{course.price} kr</h5>
                         <div className="mb-8">
-                        <h5 className="py-2">Lediga datum</h5>
-                                    <select className="border w-full"  onChange={(e) => {handleDate(e.target.value)}} >
-                                        {course.dates.map((d, i: number) =>
-                                            <option key={i}  value={d.date} className="mx-2">
-                                                    {d.date},
-                                                    Platser kvar: {d.number }
-                                            </option>
-                                        )}
-                                        </select>
-                                          
-                            </div>
-                        </div>
+                            <h5 className="py-2">Lediga datum</h5>
+                            <select className="border w-full" onChange={(e) => { handleDate(e.target.value) }} >
+                                {course.dates.map((d, i: number) =>
+                                    <option key={i} value={d.date} className="mx-2">
+                                        {d.date},
+                                        Platser kvar: {d.number}
+                                    </option>
+                                )}
+                            </select>
 
-                    
+                        </div>
+                    </div>
+
+
                 </article>
 
             </>)
@@ -107,7 +128,7 @@ function handleDate( e:any ){
                             <input className="h-48 align-top" type="textarea" name="messenge" onChange={handleChange} />
                             <div className="flex items-center" >
                                 <label>Godkänner Gdpr</label>
-                                <input type="checkbox" name="gdpr" className="w-4 h-4 mx-4" onClick={() => setGdpr(!gdpr)} />
+                                <input type="checkbox" name="gdpr" className="w-4 h-4 mx-4" onClick={addGdpr} />
                             </div>
                         </form>
                         <button onClick={sendBooking}>Skicka</button>
