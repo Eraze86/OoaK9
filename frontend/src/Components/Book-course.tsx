@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import { ICourses } from "./module/ICourses"
 import courseImg from "../img/11.jpg"
 import { IBookCourse } from "./module/IBookCourse";
+import axios from "axios";
 
 export function BookCourse() {
     // todo, lägga till datum och all info i en bokning.
     //lägga in att antal platser minskar, visa att platserna är slut men kan boka som reserv
     //typ 2 styken. efter det försvinner datumet. Ska läggas in som reserv i systemet med. 
     //fixa gdpr så det kommer med i bookningen
-    //fixa width då den sticker utanför på tiderna
+
 
 
     const [courses, setCourses] = useState<ICourses[]>([])
@@ -39,8 +40,7 @@ export function BookCourse() {
         setBookCourse(uppdate)
     }
     function sendBooking() {
-        let uppdate = ({ ...bookCourse, })
-        setBookCourse(uppdate)
+axios.post<IBookCourse>
 
         console.log("skicka boking", bookCourse)
     }
@@ -52,16 +52,18 @@ console.log(chooseDate)
             return (<>
                 <article key={course.id}>
                     <div>
-                        <h5 className="py-2">Kursen:{course.name}</h5>
-                        <h5 className="py-2">Pris:{course.price} kr </h5>
-                        <div className="">
-                            <h5>Valbara datum:</h5>
+                        <h4 className="py-2">{course.name}</h4>
+                     
+                        <h5 className="">Beskrivning:</h5> <h6>{course.description} </h6>
+                        <h5 className="py-2">{course.price} kr</h5>
+                        <div className="mb-8">
+                            <h5 className="py-2">Valbara datum:</h5>
                                     <ul className="w-full">
 
                                         {course.dates.map((d, i: number) =>
-                                            <li key={i} className=" bordermy-1 p-2 rounded hover:bg-primary flex justify-between" onClick={() => setChooseDate(d.date)} >
-                                                    <p>{d.date}</p>
-                                                    <p> {"Platser: " + d.number } </p>
+                                            <li key={i} className=" border my-1 p-2 rounded hover:bg-primary flex " onClick={() => setChooseDate(d.date)} >
+                                                    <p>{d.date},</p>
+                                                    <p className="ml-2"> Platser kvar: {d.number } </p>
                                             </li>
                                         )}
 
@@ -69,7 +71,7 @@ console.log(chooseDate)
                                     
                             </div>
                         </div>
-                        <h5 className="mt-8">Beskrivning:</h5> <h6>{course.description} </h6>
+
                     
                 </article>
 
