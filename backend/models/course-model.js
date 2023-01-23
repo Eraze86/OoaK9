@@ -5,6 +5,9 @@ const CourseSchema = mongoose.Schema({
     price: Number,
     img: String,
     description: String,
-    date: [String]
+    dates: [{
+        date: Date,
+        number: Number,
+    }]
 })
 module.exports = mongoose.model("cours", CourseSchema)

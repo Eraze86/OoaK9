@@ -1,4 +1,4 @@
-import AbouteImg from "../img/DSC_0102-1.jpg";
+import AbouteImg from "../img/11.jpg";
 
 export function About(){
 
