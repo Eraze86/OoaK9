@@ -42,6 +42,7 @@ export function BookCourse() {
         }
         
     }, []);
+
     useEffect(() => {
         courses.map((course: ICourses) => {
             let uppdate = (
