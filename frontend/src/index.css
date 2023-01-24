@@ -24,7 +24,7 @@
     @apply m-2 lg:mx-36 lg:my-12
   }
  input{
-    @apply border w-96
+    @apply border w-5/6 lg:w-96
   }
   
 label{
