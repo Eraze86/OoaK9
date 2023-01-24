@@ -42,6 +42,14 @@ export function BookCourse() {
         }
         
     }, []);
+    useEffect(() => {
+        courses.map((course: ICourses) => {
+            let uppdate = (
+                { ...bookCourse, price: course.price, course: course.name,   })
+            setBookCourse(uppdate)
+        })
+
+    }, [courses]);
 
     //take the date from select option and set it in booking
     function handleDate(e: any) {
@@ -69,8 +77,8 @@ export function BookCourse() {
         setBookCourse(uppdate)
     }
     //if gdpr is checked, and all the required is filled in, send the booking    
-    function sendBooking() {
-
+    function sendBooking(e: any) {
+        e.preventDefault();
         if (gdpr === true) {
             console.log("gdpr är ikryssad")
 
@@ -90,7 +98,6 @@ export function BookCourse() {
     //the map out dates, add clickbutton to show dates when clicked
     let showBooking = courses.map((course: ICourses) => {
         if (course.id === courseId)
-         
             return (<>
                 <article key={course.id}>
                     <div>
