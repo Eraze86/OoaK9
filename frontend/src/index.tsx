@@ -18,6 +18,8 @@ import { Admin } from './Components/admin/Admin';
 import { Login } from './Components/admin/Login';
 import { Content } from './Components/admin/Content';
 import { BookCourse } from './Components/Book-course';
+import { ChangeBooking } from './Components/admin/ChangeBooking';
+
 
 
 const root = ReactDOM.createRoot(
@@ -41,6 +43,7 @@ root.render(
       <Route index element={<Admin/>}/>
       <Route path="/ooak9/hantera-kurser" element={<ChangeCourses/>}/>
       <Route path="/ooak9/bokningar" element={<Booking/>}/>
+      <Route path="/ooak9/bokningar/:id" element={<ChangeBooking/>}/>
       <Route path="/ooak9/media" element={<Media/>}/>
       <Route path="/ooak9/:id" element ={<Content />}></Route>
 

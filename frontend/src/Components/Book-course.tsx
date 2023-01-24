@@ -14,6 +14,7 @@ export function BookCourse() {
     const [gdpr, setGdpr] = useState(false)
 
     const [bookCourse, setBookCourse] = useState<IBookCourse>({
+        id: 0,
         course: "",
         price: 0,
         date: "",
