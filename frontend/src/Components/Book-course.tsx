@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEventHandler, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { ICourses } from "./module/ICourses"
 import courseImg from "../img/11.jpg"
@@ -6,18 +6,27 @@ import { IBookCourse } from "./module/IBookCourse";
 import axios from "axios";
 
 export function BookCourse() {
-
-    //lägga in att antal platser minskar, visa att platserna är slut men kan boka som reserv
-    //typ 2 stycken. efter det försvinner datumet. Ska läggas in som reserv i systemet med. 
-    //fixa gdpr så det kommer med i bookningen
-
-
+// skicka info till server. Även antal platser kvar till kursen.
+//required och skicka ett mail till kunden att det är bokat med information.  
 
     const [courses, setCourses] = useState<ICourses[]>([])
     const [courseId, setCourseId] = useState(0)
     const [gdpr, setGdpr] = useState(false)
-    // const [chooseDate, setChooseDate] = useState("")
-    const [bookCourse, setBookCourse] = useState<IBookCourse[]>([])
+
+    const [bookCourse, setBookCourse] = useState<IBookCourse>({
+        course: "",
+        price: 0,
+        date: "",
+        name: "",
+        phone: 0,
+        mail: "",
+        breed: "",
+        age: "",
+        messenge: "string",
+        gdpr: false
+    }
+
+    )
 
     let params = useParams();
 
@@ -31,7 +40,9 @@ export function BookCourse() {
         if (local) {
             setCourses(JSON.parse(local))
         }
+        
     }, []);
+
     //take the date from select option and set it in booking
     function handleDate(e: any) {
         let uppdate = ({ ...bookCourse, date: e })
@@ -51,14 +62,15 @@ export function BookCourse() {
             console.log("gdpr", uppdate)
         }
     }
-//look for changes in the form, set in booking. 
+    //look for changes in the form, set in booking. 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         let name = e.target.name
         let uppdate = ({ ...bookCourse, [name]: e.target.value })
         setBookCourse(uppdate)
     }
-//if gdpr is checked, and all the required is filled in, send the booking    
+    //if gdpr is checked, and all the required is filled in, send the booking    
     function sendBooking() {
+
         if (gdpr === true) {
             console.log("gdpr är ikryssad")
 
@@ -78,6 +90,7 @@ export function BookCourse() {
     //the map out dates, add clickbutton to show dates when clicked
     let showBooking = courses.map((course: ICourses) => {
         if (course.id === courseId)
+         
             return (<>
                 <article key={course.id}>
                     <div>
@@ -86,16 +99,25 @@ export function BookCourse() {
                         <h5 className="">Beskrivning:</h5> <h6>{course.description} </h6>
                         <h5 className="py-2">{course.price} kr</h5>
                         <div className="mb-8">
-                            <h5 className="py-2">Lediga datum</h5>
+                            <h5 className="py-2">Lediga datum: *</h5>
+                        
                             <select className="border w-full" onChange={(e) => { handleDate(e.target.value) }} >
-                                {course.dates.map((d, i: number) =>
-                                    <option key={i} value={d.date} className="mx-2">
-                                        {d.date},
-                                        Platser kvar: {d.number}
-                                    </option>
+                                <option>Välj datum </option>
+
+                                {course.dates.map((d, i: number) => {
+                                    
+                                    //kolla om några tider är fulla (antal platser), printa ut de som finns
+                                    if (d.number > 0) {
+                                        return (
+                                            <option key={i} value={d.date} className="mx-2">
+                                                {d.date},
+                                                Platser kvar: {d.number}
+                                            </option>)
+                                    }
+                                }
                                 )}
                             </select>
-
+                    
                         </div>
                     </div>
 
@@ -110,15 +132,17 @@ export function BookCourse() {
 
             <section className="w-5/6 lg:m-12 lg:w-3/6">
                 <h1 className="mt-0">Bokning</h1>
+                Alla fält med * är obligatoriska
                 {showBooking}
                 <article>
+
                     <div className="w-full">
                         <form className="flex flex-col">
-                            <label>Ägare:</label>
-                            <input name="name" onChange={handleChange} />
-                            <label>Telefonnr:</label>
-                            <input type="number" name="phone" onChange={handleChange} />
-                            <label>E-mail:</label>
+                            <label>Ägare:*</label>
+                            <input  name="name" onChange={handleChange} />
+                            <label>Telefonnr:*</label>
+                            <input  type="number" name="phone" onChange={handleChange} />
+                            <label>E-mail:*</label>
                             <input name="mail" onChange={handleChange} />
                             <label>Hundras:</label>
                             <input name="breed" onChange={handleChange} />
@@ -127,11 +151,12 @@ export function BookCourse() {
                             <label>Medelande.</label>
                             <input className="h-48 align-top" type="textarea" name="messenge" onChange={handleChange} />
                             <div className="flex items-center" >
-                                <label>Godkänner Gdpr</label>
+                                <label>Godkänner Gdpr*</label>
                                 <input type="checkbox" name="gdpr" className="w-4 h-4 mx-4" onClick={addGdpr} />
                             </div>
+                            <button className="bg-primary" type="submit" onClick={sendBooking}>Skicka</button>
                         </form>
-                        <button onClick={sendBooking}>Skicka</button>
+
                     </div>
                 </article>
             </section >
