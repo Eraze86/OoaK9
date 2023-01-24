@@ -30,6 +30,10 @@
 label{
     @apply text-sm py-2
   }
+ td, th{
+    @apply text-left pl-8 
+  }
+
 }
 
 @tailwind components;
