@@ -1,44 +1,41 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import { IBookCourse } from "../module/IBookCourse"
-import { ChangeBooking } from "./ChangeBooking"
+import { EditBooking } from "./EditBooking"
+
 
 export function Booking() {
     const [bookings, setBookings] = useState<IBookCourse[]>([])
     const [info, setInfo] = useState(false)
+    const [editBooking, setEditBooking] = useState(false)
+    const [edit, setEdit] = useState({
+      
+        course: "",
+        date: "",
+        name: "",
+        phone: 0,
+        mail: "",
+
+    })
     useEffect(() => {
 
         axios.get<IBookCourse[]>("http://localhost:3001/bookings")
             .then((response) => {
                 setBookings(response.data)
-                console.log(response.data)
-                localStorage.setItem("booking", JSON.stringify(response.data))
             })
     }, [])
 
-    function Change() {
-    // //   <ChangeBooking book={bookings}></ChangeBooking>
-    //     let changeBooking = bookings.map((b: IBookCourse, i:number) => {
-    //         return(
-    //             <>
-    //             <label></label>
-    //             </>
-    //         )
-    //     })
-    //     axios.put<IBookCourse[]>("http://localhost:3001/bookings/change")
-    //     .then((response) => {
-    //         setBookings(response.data)
-    //         console.log(response.data)
-
-    //     })
+    function Change(book: IBookCourse) {
+        setEditBooking(true)
+        setEdit(book)
+        console.log("vad är i book", book)
     }
 
     function Delete() {
 
     }
-    let printBookings = bookings.map((book: IBookCourse, i: number) => {
-        let courseLink = `/ooak9/bokningar/${book.id}`;
+
+    let printBookings = bookings.map((book: IBookCourse, i: number) => { 
         return (<>
             <tr key={i} className="mb-6 w-full odd:bg-[#E8E8E8] even:bg-[#DBDBDB]">
                 <td className="w-48">{book.course}</td>
@@ -59,7 +56,7 @@ export function Booking() {
                         <td className="col-span-{3}">{book.messenge} grhhg fhfhfh</td>
 
                         <td>
-                            <Link to={courseLink} className="cursor-pointer w-16 mr-2" onClick={Change}>Ändra</Link>
+                            <a  className="cursor-pointer w-16 mr-2" onClick={() => {Change(book)}}>Ändra</a>
                             <a className="cursor-pointer w-8 mr-2 text-red-700 text-center font-bold" onClick={Delete}>Radera</a>
                         </td>
                     </tr>
@@ -83,5 +80,9 @@ export function Booking() {
                     {printBookings}
                 </tbody>
             </table>
-        </section></>)
-}
+        </section>
+        {editBooking && 
+        <>
+        <EditBooking  course={edit.course}  date={edit.date} name={edit.name} phone={edit.phone} mail={edit.mail}/>
+        </>}
+</>)}

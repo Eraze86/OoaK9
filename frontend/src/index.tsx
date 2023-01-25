@@ -12,13 +12,13 @@ import { Courses } from './Components/Courses';
 import { Policy } from './Components/Policy';
 import { LayoutAdmin } from './Components/admin/LayoutAdmin';
 import { Booking } from './Components/admin/Booking';
-import { ChangeCourses } from './Components/admin/ChangeCourses';
 import { Media } from './Components/admin/Media';
 import { Admin } from './Components/admin/Admin';
 import { Login } from './Components/admin/Login';
 import { Content } from './Components/admin/Content';
 import { BookCourse } from './Components/Book-course';
-import { ChangeBooking } from './Components/admin/ChangeBooking';
+import { ChangeCourses } from './Components/admin/ChangeCourses';
+
 
 
 
@@ -43,7 +43,6 @@ root.render(
       <Route index element={<Admin/>}/>
       <Route path="/ooak9/hantera-kurser" element={<ChangeCourses/>}/>
       <Route path="/ooak9/bokningar" element={<Booking/>}/>
-      <Route path="/ooak9/bokningar/:id" element={<ChangeBooking/>}/>
       <Route path="/ooak9/media" element={<Media/>}/>
       <Route path="/ooak9/:id" element ={<Content />}></Route>
 
