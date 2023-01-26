@@ -9,6 +9,8 @@ var bookingsRouter = require('./routes/bookings');
 var coursesRouter = require('./routes/courses');
 var app = express();
 
+
+
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "pug")
 const mongoose = require("mongoose")

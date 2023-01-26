@@ -10,7 +10,6 @@ export function Courses() {
         []
     )
 
-
     useEffect(() => {
       
             axios.get<ICourses[]>("http://localhost:3001/courses")
