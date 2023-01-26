@@ -12,12 +12,14 @@ import { Courses } from './Components/Courses';
 import { Policy } from './Components/Policy';
 import { LayoutAdmin } from './Components/admin/LayoutAdmin';
 import { Booking } from './Components/admin/Booking';
-import { ChangeCourses } from './Components/admin/ChangeCourses';
 import { Media } from './Components/admin/Media';
 import { Admin } from './Components/admin/Admin';
 import { Login } from './Components/admin/Login';
 import { Content } from './Components/admin/Content';
 import { BookCourse } from './Components/Book-course';
+import { ChangeCourses } from './Components/admin/ChangeCourses';
+
+
 
 
 const root = ReactDOM.createRoot(
