@@ -82,7 +82,13 @@ export function BookCourse() {
     function sendBooking(e: any) {
         e.preventDefault();
         if (gdpr === true) {
-            console.log("gdpr är ikryssad")
+           
+            axios.post<IBookCourse>("http://localhost:3001/bookings/add", bookCourse,
+  )
+        
+            .then((response) => {
+               console.log(response.data)
+            })
 
         } else {
             console.log("gdpr är false")
