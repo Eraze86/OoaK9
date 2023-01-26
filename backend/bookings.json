@@ -1,31 +1,28 @@
-[{
-        "id": "1",
-        "course": "hundlek",
-        "price": 1500,
-        "date": "23 februari, kl 17:00",
-        "name": "Anna bengtsson",
-        "phone": 46857551551,
-        "mail": "john@hej.se",
+[
+  {
+    "id": "Euno3vIAuqQ2JfIM",
+    "course": "Kurs 3",
+    "price": 3000,
+    "date": "3 mars kl 13:00",
+    "name": "Therese Rosvall",
+    "phone": "5645436546",
+    "mail": "therese.rosvall@hotmail.se",
+    "breed": "bulldog",
+    "age": "54",
+    "messenge": "hohohoh",
+    "gdpr": true
+  },
+  {
+        "id": "Euno3vIAuoQ2JfIM",
+        "course": "Kurs 3",
+        "price": 3000,
+        "date": "3 mars kl 13:00",
+        "name": "Therese Rosvall",
+        "phone": "5645436546",
+        "mail": "therese.rosvall@hotmail.se",
         "breed": "bulldog",
-        "age": "7", 
-        "messenge": "busig hund", 
-        "gdpr": "check"
-        
-
-},
-{
-        "id": "2",
-        "course": "najskorv",
-        "price": 1500,
-        "date": "23 februari, kl 17:00",
-        "name": "bert larsson",
-        "phone": 46857551551,
-        "mail": "john@hej.se",
-        "breed": "bulldog",
-        "age": "7", 
-        "messenge": "busig hund", 
-        "gdpr": "check"
-
-}
- 
+        "age": "54",
+        "messenge": "hohohoh",
+        "gdpr": true
+      }
 ]

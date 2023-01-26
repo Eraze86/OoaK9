@@ -21,13 +21,11 @@ router.get('/', function(req, res, next) {
 });
 //ska ny bokning, se till att det finns error om det inte finns någon bokning  och vad som händer då
 router.post('/add', function(req, res, next) {
-    let list = { ...req.body };
+
    
     fs.readFile("bookings.json", function(err, data){
         if(err){
             console.log("error", err)
-            // if("bookings.json" === null){
-            // }
         }
         let bookings = JSON.parse(data)
         let newBooking = {
@@ -44,7 +42,7 @@ router.post('/add', function(req, res, next) {
             "gdpr": req.body.gdpr
         }
         bookings.push(newBooking)
-       fs.writeFile("bookings.js", JSON.stringify(bookings, null), function(err){
+       fs.writeFile("bookings.json", JSON.stringify(bookings, null), function(err){
         if(err){
             console.log("error", err)
         }
@@ -56,15 +54,34 @@ router.post('/add', function(req, res, next) {
 });
 
 router.put('/change', function(req, res, next) {
+    //why is bookings.id undifind?
     fs.readFile("bookings.json", function(err, data){
         if(err){
             console.log("error", err)
         }
-        req.body
-        (console.log("req", req.body))
-        // let book = JSON.parse.data
-    //    fs.writeFile("bookings.js")
-        return
+        let bookings = JSON.parse(data)
+        console.log("hittat",req.body.id, bookings.id)
+        if(bookings.id === req.body.id){
+        let editBooking = {
+            "id": req.body.id, 
+            "course": req.body.course, 
+            "date": req.body.date, 
+            "phone": req.body.phone, 
+            "mail": req.body.mail, 
+            "messenge": req.body.messenge,
+        }
+    
+        fs.writeFile("bookings.json", JSON.stringify(editBooking, null), function(err){
+            if(err){
+                console.log("error", err)
+            }
+            console.log(bookings)
+            res.send("datan har kommit in")
+           })
+            
+           return
+        } 
+
     })
 
 });

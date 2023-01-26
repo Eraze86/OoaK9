@@ -30,7 +30,7 @@
     "price": 2000,
     "img": "/img/DSC_0082-1.jpg",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-    "date": [
+    "dates": [
       {
         "date": "23 januari kl 18:00",
         "number": 4
@@ -51,7 +51,7 @@
     "price": 3000,
     "img": "/img/DSC_0087-1.jpg",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-    "date": [
+    "dates": [
       {
         "date": "23 januari kl 18:00",
         "number": 4

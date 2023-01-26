@@ -9,6 +9,7 @@ export function Booking() {
     const [info, setInfo] = useState(false)
     const [editBooking, setEditBooking] = useState(false)
     const [edit, setEdit] = useState({
+        id: "",
         course: "",
         date: "",
         name: "",
@@ -71,7 +72,7 @@ export function Booking() {
                 <section className="m-auto w-screen h-full fixed top-0  backdrop-blur ">
                     <article className="m-auto p-4 border-2 w-full h-4/6 md:h-4/6 md:w-3/6  bg-white  relative  top-24  text-sm">
                         <div className="absolute right-6 text-xl z-10 font-bold cursor-pointer" onClick={() => setEditBooking(false)}>X</div>
-                        <EditBooking course={edit.course} date={edit.date} name={edit.name} phone={edit.phone} mail={edit.mail} />
+                        <EditBooking id={edit.id} course={edit.course} date={edit.date} name={edit.name} phone={edit.phone} mail={edit.mail} />
                     </article>
                 </section>
             </>}
