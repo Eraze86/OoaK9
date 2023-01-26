@@ -31,7 +31,7 @@ router.post('/add', function(req, res, next) {
         }
         let bookings = JSON.parse(data)
         let newBooking = {
-            "id": req.body.id, 
+            "id": rand.generate(), 
             "course": req.body.course, 
             "price": req.body.price, 
             "date": req.body.date, 
@@ -48,6 +48,7 @@ router.post('/add', function(req, res, next) {
         if(err){
             console.log("error", err)
         }
+        console.log(bookings)
     res.send("datan har kommit in")
        })
         return
