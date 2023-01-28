@@ -45,6 +45,7 @@ res.status(200).json(book)
   })
     
 
+  
 router.delete('/:id', async function(req, res, next) {
     console.log("vad har vi här", req.params.id)
 await bookingsModel.findByIdAndRemove({_id: req.params.id})
