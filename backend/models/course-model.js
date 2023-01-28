@@ -6,7 +6,7 @@ const CourseSchema = mongoose.Schema({
     img: String,
     description: String,
     dates: [{
-        date: Date,
+        date: String,
         number: Number,
     }]
 })

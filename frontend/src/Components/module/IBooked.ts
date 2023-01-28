@@ -1,5 +1,5 @@
-export interface IBookCourse{
-   
+export interface IBooked{
+    _id: string,
     course: string,
     price: number,
     date: string,

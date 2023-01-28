@@ -13,7 +13,7 @@ export function BookCourse() {
     const [courseId, setCourseId] = useState(0)
     const [gdpr, setGdpr] = useState(false)
     const [bookCourse, setBookCourse] = useState<IBookCourse>({
-        _id: "",
+    
         course: "",
         price: 0,
         date: "",

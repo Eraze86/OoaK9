@@ -8,10 +8,12 @@ const cours = require("../courses.json")
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
-  res.send(cours)
+  const getCourses = await courseModel.find()
+    res.send(getCourses)
+    console.log(getCourses)
 });
 
-router.post('/', async function(req, res, next) {
+router.post('/add', async function(req, res, next) {
     const course = new courseModel(req.body)
     console.log("req body", course)
   await course.save

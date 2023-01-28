@@ -1,12 +1,13 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { IBookCourse } from "../module/IBookCourse"
+
+import { IBooked } from "../module/IBooked"
 import { EditBooking } from "./EditBooking"
 import { MoreDetails } from "./MoreDetails"
 
 //mer info, visa bara den som är klickad - todo
 export function Booking() {
-    const [bookings, setBookings] = useState<IBookCourse[]>([])
+    const [bookings, setBookings] = useState<IBooked[]>([])
     const [info, setInfo] = useState(false)
     const [editBooking, setEditBooking] = useState(false)
     const [seeDetails, setSeeDetails] = useState(false)
@@ -32,29 +33,29 @@ export function Booking() {
     })
 
     useEffect(() => {
-        axios.get<IBookCourse[]>("http://localhost:3001/bookings")
+        axios.get<IBooked[]>("http://localhost:3001/bookings")
             .then((response) => {
                 setBookings(response.data)
                 console.log("data", response.data)
             })
     }, [])
 
-    function Show(book: IBookCourse) {
+    function Show(book: IBooked) {
         if(book)
         setInfo(!info)
     }
 
-    function Change(book: IBookCourse) {
+    function Change(book: IBooked) {
         setEditBooking(true)
         setEdit(book)
     }
 
-    function More(book: IBookCourse) {
+    function More(book: IBooked) {
     setSeeDetails(true)
     setDetails(book)
     }
 
-    let printBookings = bookings.map((book: IBookCourse, i: number) => {
+    let printBookings = bookings.map((book: IBooked, i: number) => {
         return (<>
             <div key={i} className="border-4 m-2 px-2">
                 <ul className="my-4 grid md:grid-cols-5 md:grid-flow-col flex-col">
