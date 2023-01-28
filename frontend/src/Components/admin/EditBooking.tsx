@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { ICourses } from "../module/ICourses";
 import axios from "axios";
-import { BookingChanges } from "../module/ChangeBooking";
+import { BookingChanges } from "../module/BookingChanges";
 import { IBookingProps } from "../module/IBookingProps";
 
 export function EditBooking(props: IBookingProps) {
     const standardProps = new BookingChanges(
-        props.id,
+        props._id,
         props.course,
         props.date,
         props.name,
@@ -15,7 +15,7 @@ export function EditBooking(props: IBookingProps) {
     )
     const [edit, setEdit] = useState<BookingChanges>(standardProps);
     const [changes, setChanges] = useState<IBookingProps>({
-        id: edit.id,
+        _id: edit._id,
         course: edit.course,
         date: edit.date,
         name: edit.name,
@@ -32,7 +32,12 @@ export function EditBooking(props: IBookingProps) {
                 setCourses(response.data)
             })
     }, [])
-
+    
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+        let name = e.target.name
+        let uppdate = ({ ...changes, [name]: e.target.value })
+        setChanges(uppdate)
+    }
      function HandelCourse(e: any) {
         let uppdate = ({ ...changes, course: e })
         setChanges(uppdate)
@@ -48,7 +53,7 @@ export function EditBooking(props: IBookingProps) {
 
     function Save() {
         console.log("ändringarna",changes)
-        axios.put<ICourses[]>("http://localhost:3001/bookings/change", changes)
+        axios.put<IBookingProps>("http://localhost:3001/bookings/change", changes)
         .then((response) => {
             console.log("data", response.data)
             // setCourses(response.data)
@@ -97,12 +102,12 @@ export function EditBooking(props: IBookingProps) {
             <div className="my-6">
                 <label className="font-medium">Telefonnr </label>
                 {edit.phone}<br />
-                Ändra: <input />
+                Ändra: <input type="number" name="phone" onChange={handleChange} />
             </div>
             <div className="my-6">
                 <label className="font-medium">E-mail </label>
                 {edit.mail}<br />
-                Ändra: <input />
+                Ändra: <input  name="mail" onChange={handleChange}  />
             </div>
         </form>
         <button  className="w-48  mx-6 mt-24" onClick={Save}>Spara</button>

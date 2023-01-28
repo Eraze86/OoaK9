@@ -1,5 +1,5 @@
 export interface IBookCourse{
-    id: string,
+    _id: string,
     course: string,
     price: number,
     date: string,

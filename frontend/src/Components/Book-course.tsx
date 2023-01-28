@@ -13,7 +13,7 @@ export function BookCourse() {
     const [courseId, setCourseId] = useState(0)
     const [gdpr, setGdpr] = useState(false)
     const [bookCourse, setBookCourse] = useState<IBookCourse>({
-        id: "",
+        _id: "",
         course: "",
         price: 0,
         date: "",
@@ -22,7 +22,7 @@ export function BookCourse() {
         mail: "",
         breed: "",
         age: "",
-        messenge: "string",
+        messenge: "",
         gdpr: false
     })
 
@@ -59,7 +59,7 @@ export function BookCourse() {
         setGdpr(!gdpr)
         let uppdate = ({ ...bookCourse, gdpr: !gdpr })
         setBookCourse(uppdate)
-        console.log("gdpr", uppdate)
+      
     }
 
     //look for changes in the form, set in booking. 
@@ -73,6 +73,7 @@ export function BookCourse() {
     function sendBooking(e: any) {
         e.preventDefault();
         if (gdpr === true) {
+            console.log("vad skickas", bookCourse)
             axios.post<IBookCourse>("http://localhost:3001/bookings/add", bookCourse)
                 .then((response) => {
                     console.log(response.data)
@@ -99,13 +100,11 @@ export function BookCourse() {
                                 <option>Välj datum </option>
 
                                 {course.dates?.map((days, i: number) => {
-                                    console.log("datum", days)
                                     //kolla om några tider är fulla (antal platser), printa ut de som finns
                                     if (days.number >= 0) {
                                         if(!days){
                                             console.log("null")
                                             return null
-                                            
                                         }
                                         return (
                                             <option key={i} value={days.date} className="mx-2">
