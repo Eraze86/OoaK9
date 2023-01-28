@@ -6,15 +6,14 @@ import { IBookCourse } from "./module/IBookCourse";
 import axios from "axios";
 
 export function BookCourse() {
-// skicka info till server. Även antal platser kvar till kursen.
-//required och skicka ett mail till kunden att det är bokat med information.  
+    // skicka info till server. Även antal platser kvar till kursen.
+    //required och skicka ett mail till kunden att det är bokat med information.  
 
     const [courses, setCourses] = useState<ICourses[]>([])
     const [courseId, setCourseId] = useState(0)
     const [gdpr, setGdpr] = useState(false)
-
     const [bookCourse, setBookCourse] = useState<IBookCourse>({
-        id: 0,
+    
         course: "",
         price: 0,
         date: "",
@@ -23,11 +22,9 @@ export function BookCourse() {
         mail: "",
         breed: "",
         age: "",
-        messenge: "string",
+        messenge: "",
         gdpr: false
-    }
-
-    )
+    })
 
     let params = useParams();
 
@@ -41,16 +38,14 @@ export function BookCourse() {
         if (local) {
             setCourses(JSON.parse(local))
         }
-        
     }, []);
 
     useEffect(() => {
         courses.map((course: ICourses) => {
             let uppdate = (
-                { ...bookCourse, price: course.price, course: course.name,   })
+                { ...bookCourse, price: course.price, course: course.name, })
             setBookCourse(uppdate)
         })
-
     }, [courses]);
 
     //take the date from select option and set it in booking
@@ -62,84 +57,68 @@ export function BookCourse() {
     //check if gdpr is checked. if false, set true. else set false
     function addGdpr() {
         setGdpr(!gdpr)
-        if (gdpr === false) {
-            let uppdate = ({ ...bookCourse, gdpr: true })
-            setBookCourse(uppdate)
-            console.log("gdpr", uppdate)
-        } else {
-            let uppdate = ({ ...bookCourse, gdpr: false })
-            setBookCourse(uppdate)
-            console.log("gdpr", uppdate)
-        }
+        let uppdate = ({ ...bookCourse, gdpr: !gdpr })
+        setBookCourse(uppdate)
+      
     }
+
     //look for changes in the form, set in booking. 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         let name = e.target.name
         let uppdate = ({ ...bookCourse, [name]: e.target.value })
         setBookCourse(uppdate)
     }
+
     //if gdpr is checked, and all the required is filled in, send the booking    
     function sendBooking(e: any) {
         e.preventDefault();
         if (gdpr === true) {
-           
-            axios.post<IBookCourse>("http://localhost:3001/bookings/add", bookCourse,
-  )
-        
-            .then((response) => {
-               console.log(response.data)
-            })
-
+            console.log("vad skickas", bookCourse)
+            axios.post<IBookCourse>("http://localhost:3001/bookings/add", bookCourse)
+                .then((response) => {
+                    console.log(response.data)
+                })
         } else {
             console.log("gdpr är false")
         }
-        // axios.post<IBookCourse>("http://localhost:3001/courses")
-        // .then((response) => {    
-        //    console.log(response.data)
 
-        // })   
-
-        console.log("skicka boking", bookCourse)
     }
 
     //map out courses, id id match print the right cours
     //the map out dates, add clickbutton to show dates when clicked
     let showBooking = courses.map((course: ICourses) => {
         if (course.id === courseId)
-            return (<>
+            return (
                 <article key={course.id}>
                     <div>
                         <h4 className="py-2">{course.name}</h4>
-
                         <h5 className="">Beskrivning:</h5> <h6>{course.description} </h6>
                         <h5 className="py-2">{course.price} kr</h5>
                         <div className="mb-8">
                             <h5 className="py-2">Lediga datum: *</h5>
-                        
                             <select className="border w-full" onChange={(e) => { handleDate(e.target.value) }} >
                                 <option>Välj datum </option>
 
-                                {course.dates.map((d, i: number) => {
-                                    
+                                {course.dates?.map((days, i: number) => {
                                     //kolla om några tider är fulla (antal platser), printa ut de som finns
-                                    if (d.number > 0) {
+                                    if (days.number >= 0) {
+                                        if(!days){
+                                            console.log("null")
+                                            return null
+                                        }
                                         return (
-                                            <option key={i} value={d.date} className="mx-2">
-                                                {d.date},
-                                                Platser kvar: {d.number}
+                                            <option key={i} value={days.date} className="mx-2">
+                                                {days.date},
+                                                Platser kvar: {days.number}
                                             </option>)
                                     }
                                 }
                                 )}
                             </select>
-                    
                         </div>
                     </div>
-
-
                 </article>
-
-            </>)
+            )
     })
 
     return (<>
@@ -154,9 +133,9 @@ export function BookCourse() {
                     <div className="w-full">
                         <form className="flex flex-col">
                             <label>Ägare:*</label>
-                            <input  name="name" onChange={handleChange} />
+                            <input name="name" onChange={handleChange} />
                             <label>Telefonnr:*</label>
-                            <input  type="number" name="phone" onChange={handleChange} />
+                            <input type="number" name="phone" onChange={handleChange} />
                             <label>E-mail:*</label>
                             <input name="mail" onChange={handleChange} />
                             <label>Hundras:</label>

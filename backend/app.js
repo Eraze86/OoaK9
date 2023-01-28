@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require("mongoose")
+const MongoClient = require ("mongodb").MongoClient
 
 var adminRouter = require('./routes/admin');
 var mediaRouter = require('./routes/media');
@@ -13,24 +15,23 @@ var app = express();
 
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "pug")
-const mongoose = require("mongoose")
-// const MongoClient = require ("mongodb").MongoClient
 
-// // connect mongodb server
-// MongoClient.connect("mongodb://127.0.0.1:27017",  {
-//     useUnifiedTopology: true
-// })
-// .then(client => {console.log("Vi är uppkopplade")
-// const db = client.db("ooak9databas")
-// app.locals.db = db;
-// })
 
-function init(){
+// connect mongodb server
+MongoClient.connect("mongodb+srv://eraze86:vTAm4ylx245Gk1kM@ooak9.utw3gt2.mongodb.net/ooak9",  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true, 
+})
+.then(client => {console.log("Vi är uppkopplade")
+const db = client.db("ooak9databas")
+app.locals.db = db;
+})
+
+async function init(){
     try {
-        const options = mongoose.set('strictQuery', false)
-  
- mongoose.connect("mongodb+srv://eraze86:vTAm4ylx245Gk1kM@ooak9.utw3gt2.mongodb.net/ooak9", 
- options, () => console.log("databas is connected")) 
+        await mongoose.connect("mongodb+srv://eraze86:vTAm4ylx245Gk1kM@ooak9.utw3gt2.mongodb.net/ooak9") 
+        // .then(mongoose.set('strictQuery', false))
+        console.log("databas is connected") 
          
     } catch (error) {
         console.log("database error", error)
