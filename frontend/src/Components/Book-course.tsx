@@ -12,6 +12,8 @@ export function BookCourse() {
     const [courses, setCourses] = useState<ICourses[]>([])
     const [courseId, setCourseId] = useState(0)
     const [gdpr, setGdpr] = useState(false)
+    const [bookingFailed, setBookingFailed] = useState(false)
+    const [bookingCreated, setBookingCreated] = useState(false)
     const [bookCourse, setBookCourse] = useState<IBookCourse>({
     
         course: "",
@@ -76,10 +78,16 @@ export function BookCourse() {
             console.log("vad skickas", bookCourse)
             axios.post<IBookCourse>("http://localhost:3001/bookings/add", bookCourse)
                 .then((response) => {
-                    console.log(response.data)
+                    if(response.status === 201){
+                        setBookingCreated(true)
+                    }
                 })
         } else {
-            console.log("gdpr är false")
+             setBookingFailed(true)
+            setTimeout(() => {
+                setBookingFailed(false)  
+            }, 3000);
+           
         }
 
     }
@@ -96,12 +104,12 @@ export function BookCourse() {
                         <h5 className="py-2">{course.price} kr</h5>
                         <div className="mb-8">
                             <h5 className="py-2">Lediga datum: *</h5>
-                            <select className="border w-full" onChange={(e) => { handleDate(e.target.value) }} >
+                            <select required className="border w-full" onChange={(e) => { handleDate(e.target.value) }} >
                                 <option>Välj datum </option>
 
                                 {course.dates?.map((days, i: number) => {
                                     //kolla om några tider är fulla (antal platser), printa ut de som finns
-                                    if (days.number >= 0) {
+                                    if (days.number > 0) {
                                         if(!days){
                                             console.log("null")
                                             return null
@@ -133,11 +141,11 @@ export function BookCourse() {
                     <div className="w-full">
                         <form className="flex flex-col">
                             <label>Ägare:*</label>
-                            <input name="name" onChange={handleChange} />
+                            <input required name="name" onChange={handleChange} />
                             <label>Telefonnr:*</label>
-                            <input type="number" name="phone" onChange={handleChange} />
+                            <input required type="number" name="phone" onChange={handleChange} />
                             <label>E-mail:*</label>
-                            <input name="mail" onChange={handleChange} />
+                            <input required name="mail" onChange={handleChange} />
                             <label>Hundras:</label>
                             <input name="breed" onChange={handleChange} />
                             <label>Ålder på hunden:</label>
@@ -146,8 +154,9 @@ export function BookCourse() {
                             <input className="h-48 align-top" type="textarea" name="messenge" onChange={handleChange} />
                             <div className="flex items-center" >
                                 <label>Godkänner Gdpr*</label>
-                                <input type="checkbox" name="gdpr" className="w-4 h-4 mx-4" onClick={addGdpr} />
+                                <input required type="checkbox" name="gdpr" className="w-4 h-4 mx-4" onClick={addGdpr} />
                             </div>
+                            {bookingFailed && <><p className="text-red-500">Vänligen fyll i alla obligatoriska fält</p></> }
                             <button className="bg-primary" type="submit" onClick={sendBooking}>Skicka</button>
                         </form>
 
@@ -160,5 +169,16 @@ export function BookCourse() {
                 </article>
             </section>
         </main>
+        {bookingCreated && <>
+        <div className="m-auto w-screen h-full fixed top-0  backdrop-blur">
+        <div className="fixed border-4 mx-[10%] md:mx-[30%] top-48 bg-white w-72 p-8">
+            
+            <p>Din bokning har mottagits. Det kommer ett bekräftelsemail i din inkorg på angivna mail</p> 
+            <button className="w-full" onClick={() => setBookingCreated(false)}>Stäng</button>
+            </div>
+            </div>
+          
+        </>}
+        
     </>)
 }

@@ -17,8 +17,7 @@ router.post('/add', async function(req, res, next) {
         const newBooking = new bookingsModel(req.body)
         console.log("new ", newBooking)
         await newBooking.save()
-        res.json("sparad")
-        res.status(201).json("newBooking")
+        res.status(201).json("new booking created")
       
       } catch(error){
         console.log("fel", error)
