@@ -37,9 +37,9 @@ router.get("/content", function (req, res, next) {
   //  console.log("vad skickas ",content)
 });
 
-router.post("/conent/id", function (req, res, next) {});
+// router.post("/conent/id", function (req, res, next) {});
 
-// Add a new user, if needed. crypting the password
+// // Add a new user, if needed. crypting the password
 // router.post('/save', function(req, res, next) {
 //     try{
 //         const newUser = new userModel(req.body)

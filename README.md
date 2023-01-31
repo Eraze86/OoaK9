@@ -25,3 +25,7 @@ Frontend
 backend 
 - npm init
 - nodemon start
+
+To get to Admin, use url/admin
+Username: admin
+Password: admin
