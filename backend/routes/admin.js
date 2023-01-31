@@ -19,15 +19,14 @@ router.post("/user", async function (req, res, next) {
 
     bcrypt.compare(password, user.password, function (err, result) {
       if (result === true) {
-        res.status(201).json("funkar");
+        res.status(201).json("Ok");
       }
       if (result === false) {
-        res.send("tyvärr");
+        res.send("Not valid");
       }
     });
   } catch (error) {
-    console.log("fel", error);
-    res.status(error);
+    res.status(403);
     return;
   }
 });
