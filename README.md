@@ -14,6 +14,7 @@ backend
 - npm i express-generator --no-view
 - npm install mongodb
 - npm install mongoose
+- npm install bcrypt
 
 
 #Get started
@@ -24,3 +25,7 @@ Frontend
 backend 
 - npm init
 - nodemon start
+
+To get to Admin, use url/admin
+Username: admin
+Password: admin

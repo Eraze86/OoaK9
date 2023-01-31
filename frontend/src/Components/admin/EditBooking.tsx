@@ -1,22 +1,21 @@
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { ICourses } from "../module/ICourses";
 import axios from "axios";
-import { BookingChanges } from "../module/ChangeBooking";
+import { BookingChanges } from "../module/BookingChanges";
 import { IBookingProps } from "../module/IBookingProps";
 
 export function EditBooking(props: IBookingProps) {
-
-  
-
     const standardProps = new BookingChanges(
+        props._id,
         props.course,
         props.date,
         props.name,
         props.phone,
-        props.mail,
+        props.mail
     )
     const [edit, setEdit] = useState<BookingChanges>(standardProps);
     const [changes, setChanges] = useState<IBookingProps>({
+        _id: edit._id,
         course: edit.course,
         date: edit.date,
         name: edit.name,
@@ -33,35 +32,36 @@ export function EditBooking(props: IBookingProps) {
                 setCourses(response.data)
             })
     }, [])
-
+    
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+        let name = e.target.name
+        let uppdate = ({ ...changes, [name]: e.target.value })
+        setChanges(uppdate)
+    }
      function HandelCourse(e: any) {
         let uppdate = ({ ...changes, course: e })
-        console.log("uppdatera kurs", uppdate)
         setChanges(uppdate)
         setCourse(e)
         courses.some((course) => course.name === e)
          setShowDates(true)
-
     }
     
     function HandelDate (e: any) {
         let uppdate = ({ ...changes, date: e })
-        console.log("uppdatera kurs", uppdate)
         setChanges(uppdate)
     }
+
     function Save() {
-        axios.put<ICourses[]>("http://localhost:3001/bookings/change" + (changes.course, changes.date, changes.mail, changes.phone))
+        console.log("ändringarna",changes)
+        axios.put<IBookingProps>("http://localhost:3001/bookings/change", changes)
         .then((response) => {
-            setCourses(response.data)
+            console.log("data", response.data)
+            // setCourses(response.data)
         })
     }
 
-
     return (<>
-
-
         <form className="m-auto w-full h-4/6 md:h-4/6 bg-white top-24 p-8 ">
-
             <label className="font-medium">Bokning: </label>{edit.name}<br /><br />
             <div className="my-6">
                 <label className="font-medium">Kurs: </label>
@@ -94,7 +94,6 @@ export function EditBooking(props: IBookingProps) {
                                         </option>
                                     )
                                 })}
-
                             </>)
                         })}
                     </select>
@@ -103,15 +102,14 @@ export function EditBooking(props: IBookingProps) {
             <div className="my-6">
                 <label className="font-medium">Telefonnr </label>
                 {edit.phone}<br />
-                Ändra: <input />
+                Ändra: <input type="number" name="phone" onChange={handleChange} />
             </div>
             <div className="my-6">
                 <label className="font-medium">E-mail </label>
                 {edit.mail}<br />
-                Ändra: <input />
+                Ändra: <input  name="mail" onChange={handleChange}  />
             </div>
         </form>
         <button  className="w-48  mx-6 mt-24" onClick={Save}>Spara</button>
-
     </>)
 } 

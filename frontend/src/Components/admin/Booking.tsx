@@ -1,14 +1,30 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { IBookCourse } from "../module/IBookCourse"
+
+import { IBooked } from "../module/IBooked"
 import { EditBooking } from "./EditBooking"
+import { MoreDetails } from "./MoreDetails"
 
 //mer info, visa bara den som är klickad - todo
 export function Booking() {
-    const [bookings, setBookings] = useState<IBookCourse[]>([])
+    const [bookings, setBookings] = useState<IBooked[]>([])
     const [info, setInfo] = useState(false)
     const [editBooking, setEditBooking] = useState(false)
+    const [seeDetails, setSeeDetails] = useState(false)
+    const [details, setDetails] = useState({
+        _id: "",
+        course: "",
+        price: 0,
+        date: "",
+        name: "",
+        phone: 0,
+        mail: "",
+        breed: "",
+        age: "",
+        messenge: ""
+    })
     const [edit, setEdit] = useState({
+        _id: "",
         course: "",
         date: "",
         name: "",
@@ -17,44 +33,47 @@ export function Booking() {
     })
 
     useEffect(() => {
-        axios.get<IBookCourse[]>("http://localhost:3001/bookings")
+        axios.get<IBooked[]>("http://localhost:3001/bookings")
             .then((response) => {
                 setBookings(response.data)
+                console.log("data", response.data)
             })
     }, [])
 
-    function Show(book: IBookCourse) {
+    function Show(book: IBooked) {
+        if(book)
         setInfo(!info)
     }
 
-    function Change(book: IBookCourse) {
+    function Change(book: IBooked) {
         setEditBooking(true)
         setEdit(book)
     }
 
-    function Delete() {
-
+    function More(book: IBooked) {
+    setSeeDetails(true)
+    setDetails(book)
     }
 
-    let printBookings = bookings.map((book: IBookCourse, i: number) => {
+    let printBookings = bookings.map((book: IBooked, i: number) => {
         return (<>
             <div key={i} className="border-4 m-2 px-2">
                 <ul className="my-4 grid md:grid-cols-5 md:grid-flow-col flex-col">
-                    <li>Namn: {book.name}</li>
-                    <li>Kurs: {book.course}</li>
-                    <li>Datum: {book.date}</li>
-                    <li><a className="cursor-pointer font-medium" onClick={() => { Show(book) }}>Mer info</a></li>
-                    <li><a className="cursor-pointer w-16 mr-2" onClick={() => { Change(book) }}>Ändra</a>
-                        <a className="cursor-pointer w-8 mr-2 text-red-700 text-center font-bold" onClick={Delete}>Radera</a></li>
+                    <li>Namn: <br/> {book.name}</li>
+                    <li>Kurs: <br/> {book.course}</li>
+                    <li>Datum: <br/> {book.date}</li>
+                    <li>Telnr:<br/> {book.phone}</li>
+                    <li className="text-right"><a className="cursor-pointer w-16 mr-2" onClick={() => { Change(book) }}>Ändra</a><br/>
+                        <a className="cursor-pointer w-8 mr-2 text-center font-bold" onClick={() => { More(book) }}>Mer</a></li>
                 </ul>
                 {info &&
-                    <> -------------
+                    <>
                         <ul className="my-4 md:grid md:grid-cols-5 flex;">
-                            <li>Telnr: {book.phone}</li>
-                            <li>Mail: {book.mail}</li>
-                            <li>Ras: {book.breed}</li>
-                            <li>Ålder: {book.age}</li>
-                            <li>Medelande: {book.messenge} grhhg fhfhfh</li>
+                            
+                            <li className="w-96">Mail: <br/> {book.mail}</li>
+                            <li>Ras: <br/> {book.breed}</li>
+                            <li>Ålder:<br/> {book.age}</li>
+                            <li>Medelande: <br/> {book.messenge} grhhg fhfhfh</li>
                         </ul>
                     </>}
             </div>
@@ -71,9 +90,29 @@ export function Booking() {
                 <section className="m-auto w-screen h-full fixed top-0  backdrop-blur ">
                     <article className="m-auto p-4 border-2 w-full h-4/6 md:h-4/6 md:w-3/6  bg-white  relative  top-24  text-sm">
                         <div className="absolute right-6 text-xl z-10 font-bold cursor-pointer" onClick={() => setEditBooking(false)}>X</div>
-                        <EditBooking course={edit.course} date={edit.date} name={edit.name} phone={edit.phone} mail={edit.mail} />
+                        <EditBooking _id={edit._id} course={edit.course} date={edit.date} name={edit.name} phone={edit.phone} mail={edit.mail} />
                     </article>
                 </section>
             </>}
+            {seeDetails && <>
+                <section className="m-auto w-screen h-full fixed top-0  backdrop-blur ">
+                    <article className="m-auto p-4 border-2 w-full h-4/6 md:h-4/6 md:w-3/6  bg-white  relative  top-24  text-sm">
+                        <div className="absolute right-6 text-xl z-10 font-bold cursor-pointer" onClick={() => setSeeDetails(false)}>X</div>
+                        <MoreDetails  
+                        _id={details._id}
+                        course={details.course} 
+                        date={details.date} 
+                        name={details.name} 
+                        phone={details.phone} 
+                        mail={details.mail} 
+                        breed={details.breed}
+                        price={details.price} 
+                        age={details.age} 
+                        messenge={details.course}  />
+                    </article>
+                </section>
+            </>}
+
+            
     </>)
 }

@@ -1,83 +1,59 @@
 var express = require('express');
 var router = express.Router();
-var path = require('path');
-var rand = require("random-key")
- 
+const cors = require("cors");
+const bookingsModel = require('../models/bookings-model');
 
-const bookings = require("../bookings.json") 
-let fs = require("fs");
-const { send } = require('process');
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-    fs.readFile("bookings.json", function(err, data){
-        if(err){
-            console.log("error", err)
-        }
-        // let book = JSON.parse.data
-        res.send(data)
-    
-        return
-    })
+router.use(cors());
+
+router.get('/', async function(req, res, next) {
+    const getBookings = await bookingsModel.find()
+    res.send(getBookings)
+    console.log(getBookings)
+   
 });
 //ska ny bokning, se till att det finns error om det inte finns någon bokning  och vad som händer då
-router.post('/add', function(req, res, next) {
-    let list = { ...req.body };
-   
-    fs.readFile("bookings.json", function(err, data){
-        if(err){
-            console.log("error", err)
-            // if("bookings.json" === null){
-            // }
-        }
-        let bookings = JSON.parse(data)
-        let newBooking = {
-            "id": rand.generate(), 
-            "course": req.body.course, 
-            "price": req.body.price, 
-            "date": req.body.date, 
-            "name": req.body.name, 
-            "phone": req.body.phone, 
-            "mail": req.body.mail, 
-            "breed": req.body.breed, 
-            "age": req.body.age, 
-            "messenge": req.body.messenge,
-            "gdpr": req.body.gdpr
-        }
-        bookings.push(newBooking)
-       fs.writeFile("bookings.js", JSON.stringify(bookings, null), function(err){
-        if(err){
-            console.log("error", err)
-        }
-        console.log(bookings)
-    res.send("datan har kommit in")
-       })
+router.post('/add', async function(req, res, next) {
+    try{
+        const newBooking = new bookingsModel(req.body)
+        console.log("new ", newBooking)
+        await newBooking.save()
+        res.status(201).json("new booking created")
+      
+      } catch(error){
+        console.log("fel", error)
+        res.status(error)
         return
-    })
-});
-
-router.put('/change', function(req, res, next) {
-    fs.readFile("bookings.json", function(err, data){
-        if(err){
-            console.log("error", err)
-        }
-        req.body
-        (console.log("req", req.body))
-        // let book = JSON.parse.data
-    //    fs.writeFile("bookings.js")
-        return
-    })
+      }
+      
 
 });
+//har vi rätt adress när vi ska ändra och radera? kolla!
+router.put('/change', async function(req, res, next) {
+     const { _id, course, date, phone, mail } = req.body
+console.log("bakend id", _id)
+    const book = await bookingsModel.model.findById({_id})
+    console.log("book", book._id, "req", req.body._id)
+    book.course = course
+    book.date = date
+    book.phone = phone
+    book.mail = mail
 
-router.delete('/delete', function(req, res, next) {
-    fs.readFile("bookings.json", function(err, data){
-        if(err){
-            console.log("error", err)
-        }
-        let changeInfo = data
-        data.push(changeInfo)
-        return
-    })
+    await book.save()
+res.status(200).json(book)
+
+  })
+    
+
+  
+router.delete('/:id', async function(req, res, next) {
+    console.log("vad har vi här", req.params.id)
+await bookingsModel.findByIdAndRemove({_id: req.params.id})
+if (err){
+    console.log("error delete", err)
+}
+else{
+    console.log("Removed User : ", req.params.id);
+}
 });
 
 module.exports = router;
