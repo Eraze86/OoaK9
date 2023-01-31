@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IUsers } from "../module/IUsers";
 import logoImg from "../../img/logo.png";
+import axios from "axios";
 
 export function Login(){
     const nav = useNavigate();
@@ -16,14 +17,22 @@ export function Login(){
         let uppdate = ({ ...user, [name]: e.target.value })
         setUser(uppdate)
     }
-    console.log(user)
+  
     function logIn(){
-        if(user.username === "admin" && user.password === "loppan"){
-            console.log("woohoo")
-            nav("/ooak9")
-        }else{
+        console.log(user)
+        axios.post<IUsers[]>("http://localhost:3001/user", user)
+        .then((response) => {
+            
+            console.log("data", response.status )
+            if(response.status === 201){
+
+                nav("/ooak9")
+            }
+            
+            console.log("faaaaaals")
             setWrong(true)
-        }
+        })
+
      
     // axios.post<IUsers>("http://localhost:3001/admin")
     // .then(response => console.log("hämtad data", response))

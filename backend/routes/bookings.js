@@ -27,7 +27,7 @@ router.post('/add', async function(req, res, next) {
       
 
 });
-
+//har vi rätt adress när vi ska ändra och radera? kolla!
 router.put('/change', async function(req, res, next) {
      const { _id, course, date, phone, mail } = req.body
 console.log("bakend id", _id)
