@@ -29,31 +29,34 @@ router.post('/add', async function(req, res, next) {
 });
 //har vi rätt adress när vi ska ändra och radera? kolla!
 router.put('/change', async function(req, res, next) {
-     const { _id, course, date, phone, mail } = req.body
-console.log("bakend id", _id)
-    const book = await bookingsModel.model.findById({_id})
-    console.log("book", book._id, "req", req.body._id)
-    book.course = course
-    book.date = date
-    book.phone = phone
-    book.mail = mail
 
-    await book.save()
-res.status(200).json(book)
-
+    try{
+      const { _id, course, date, phone, mail } = req.body
+      console.log("bakend id", _id)
+        let booking = await bookingsModel.findByIdAndUpdate({_id:_id},{ $set:{course:course,data:date,phone:phone,mail:mail}})
+        res.status(201).json(booking)
+      
+      } catch(error){
+        console.log("fel", error)
+        res.status(error)
+        return
+      }
   })
     
 
   
 router.delete('/:id', async function(req, res, next) {
-    console.log("vad har vi här", req.params.id)
-await bookingsModel.findByIdAndRemove({_id: req.params.id})
-if (err){
-    console.log("error delete", err)
-}
-else{
-    console.log("Removed User : ", req.params.id);
-}
+  try{
+    await bookingsModel.findByIdAndRemove({_id: req.params.id})
+    console.log("hitta id", req.params.id)
+
+    res.status(201).json("Booking deleted")
+
+  } catch(error){
+    console.log("fel", error)
+    res.status(error)
+    return
+  }
 });
 
 module.exports = router;
