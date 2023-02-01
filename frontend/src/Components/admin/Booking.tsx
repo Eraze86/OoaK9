@@ -1,14 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-
 import { IBooked } from "../module/IBooked"
 import { EditBooking } from "./EditBooking"
 import { MoreDetails } from "./MoreDetails"
 
-
 export function Booking() {
     const [bookings, setBookings] = useState<IBooked[]>([])
-    const [info, setInfo] = useState(false)
     const [editBooking, setEditBooking] = useState(false)
     const [seeDetails, setSeeDetails] = useState(false)
     const [details, setDetails] = useState({
@@ -39,6 +36,7 @@ export function Booking() {
                 console.log("data", response.data)
             })
     }, [])
+
 //Sends props to component and shows the one thats is clicked.
     function Change(book: IBooked) {
         setEditBooking(true)
@@ -51,7 +49,7 @@ export function Booking() {
     }
 
     let printBookings = bookings.map((book: IBooked, i: number) => {
-        return (<>
+        return (
             <div key={i} className="border-4 m-2 px-2">
                 <ul className="my-4 grid md:grid-cols-5 md:grid-flow-col">
                     <li className="flex md:flex-col"><h5>Namn: </h5><p> {book.name}</p></li>
@@ -61,17 +59,8 @@ export function Booking() {
                     <li className="text-right"><a className="cursor-pointer w-16 mr-2" onClick={() => { Change(book) }}>Ändra</a><br/>
                     <a className="cursor-pointer w-8 mr-2 text-center font-bold" onClick={() => { More(book) }}>Mer</a></li>
                 </ul>
-                {info &&
-                    <>
-                        <ul className="my-4 md:grid md:grid-cols-5 flex;">
-                            <li className="w-96">Mail: <br/> {book.mail}</li>
-                            <li>Ras: <br/> {book.breed}</li>
-                            <li>Ålder:<br/> {book.age}</li>
-                            <li>Medelande: <br/> {book.messenge} grhhg fhfhfh</li>
-                        </ul>
-                    </>}
             </div>
-        </>)
+        )
     })
 
     return (<>

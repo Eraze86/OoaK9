@@ -42,18 +42,19 @@ console.log("bakend id", _id)
 res.status(200).json(book)
 
   })
-    
 
-  
 router.delete('/:id', async function(req, res, next) {
-    console.log("vad har vi här", req.params.id)
-await bookingsModel.findByIdAndRemove({_id: req.params.id})
-if (err){
-    console.log("error delete", err)
-}
-else{
-    console.log("Removed User : ", req.params.id);
-}
+    try{
+        await bookingsModel.findByIdAndRemove({_id: req.params.id})
+        console.log("hitta id", req.params.id)
+       
+        res.status(201).json("Booking deleted")
+      
+      } catch(error){
+        console.log("fel", error)
+        res.status(error)
+        return
+      }
 });
 
 module.exports = router;
