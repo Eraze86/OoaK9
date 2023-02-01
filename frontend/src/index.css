@@ -15,7 +15,7 @@
   }
 
   h5{
-    @apply text-base leading-6 font-bold 
+    @apply text-base leading-6 font-bold mr-2
   }
   span{
     @apply text-base leading-6 

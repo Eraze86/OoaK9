@@ -5,6 +5,10 @@ import { IContent } from "../module/IContent";
 
 export function Admin() {
 
+//todo, fixa css i mobilt läge
+//fixa kurs sidan
+//fixa localstorage för att hålla en inloggad,delta om man loggar ut
+
 //Get data and save in in a hook, save to local storage
 const [content, setContent] = useState<IContent[]>([])
 useEffect(() => {
@@ -26,15 +30,13 @@ let printContent = content.map((con, i:number) => {
 })
     return (<>
     
-        <section className="mx-24 mt-12">
+        <section className="mx-[10%] md:ml-[13%] sm:mt-12 ">
             <article>
                 <Link className="mr-2" to="/ooak9/bokningar"><button> Hantera bokning</button></Link>
                 <Link className="mr-2" to="/ooak9/hantera-kurser"><button>Hantera kurser</button></Link>
             </article>
            
                 <h3>Ändra Innehåll</h3>
-
-      
         <article className="flex w-full flex-wrap">   
             {printContent}</article>
             </section>
