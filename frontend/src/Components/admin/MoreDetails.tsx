@@ -27,16 +27,14 @@ export function MoreDetails(props: IMoreDetailsProps) {
             .then((response) => {
                 if (response.status === 201) {
                     setDeleted(true)
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 2000);
+
                 } else {
                     setNotDeleted(true)
                 }
             })
     }
     return (<>
-        <ul className="p-8">
+        <ul className="p-6">
             <li>Namn: {detail.name}</li>
             <li>Kurs: {detail.course}</li>
             <li>Datum: {detail.date}</li>
@@ -50,7 +48,8 @@ export function MoreDetails(props: IMoreDetailsProps) {
                 <p className="absolute mt-4 font-bold">Bokningen har blivit raderad</p></>}
             {notDeleted && <>
                 <p className="absolute mt-4 font-bold">Något gick fel, försök igen</p></>}
-            <button className=" w-48 mt-24 bg-red-600" onClick={Delete}>Radera</button>
+            <button disabled={deleted === true} className="w-24 lg:w-48 mt-24 bg-red-600 disabled:bg-gray-300" onClick={Delete}>Radera</button>
+            <button  className="w-24 lg:w-48  mx-6 mt-24" onClick={() => window.location.reload()}>Stäng</button>
         </ul>
     </>)
 }

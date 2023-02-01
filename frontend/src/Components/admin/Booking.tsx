@@ -71,8 +71,7 @@ export function Booking() {
 
         {editBooking && <>
                 <section className="m-auto w-screen h-full fixed top-0  backdrop-blur ">
-                    <article className="m-auto p-4 border-2 w-full h-4/6 md:h-4/6 md:w-3/6 bg-white  relative  top-28  text-sm">
-                        <div className="absolute right-6 text-xl z-10 font-bold cursor-pointer" onClick={() => setEditBooking(false)}>X</div>
+                    <article className="m-auto p-4 border-2 w-full h-[70%] md:h-[70%] md:w-3/6 bg-white  relative  top-28  text-sm">
                         <EditBooking _id={edit._id} course={edit.course} date={edit.date} name={edit.name} phone={edit.phone} mail={edit.mail} />
                     </article>
                 </section>
@@ -80,7 +79,6 @@ export function Booking() {
             {seeDetails && <>
                 <section className="m-auto w-screen h-full fixed top-0  backdrop-blur ">
                     <article className="m-auto p-4 border-2 w-full h-4/6 md:h-4/6 md:w-3/6  bg-white  relative  top-28 text-sm">
-                        <div className="absolute right-6 text-xl z-10 font-bold cursor-pointer" onClick={() => setSeeDetails(false)}>X</div>
                         <MoreDetails  
                         _id={details._id}
                         course={details.course} 
