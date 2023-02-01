@@ -5,7 +5,7 @@ import { IBooked } from "../module/IBooked"
 import { EditBooking } from "./EditBooking"
 import { MoreDetails } from "./MoreDetails"
 
-//mer info, visa bara den som är klickad - todo
+
 export function Booking() {
     const [bookings, setBookings] = useState<IBooked[]>([])
     const [info, setInfo] = useState(false)
@@ -39,12 +39,7 @@ export function Booking() {
                 console.log("data", response.data)
             })
     }, [])
-
-    function Show(book: IBooked) {
-        if(book)
-        setInfo(!info)
-    }
-
+//Sends props to component and shows the one thats is clicked.
     function Change(book: IBooked) {
         setEditBooking(true)
         setEdit(book)
@@ -69,7 +64,6 @@ export function Booking() {
                 {info &&
                     <>
                         <ul className="my-4 md:grid md:grid-cols-5 flex;">
-                            
                             <li className="w-96">Mail: <br/> {book.mail}</li>
                             <li>Ras: <br/> {book.breed}</li>
                             <li>Ålder:<br/> {book.age}</li>
@@ -111,9 +105,7 @@ export function Booking() {
                         messenge={details.course}  />
                     </article>
                 </section>
-            </>}
-
-            
+            </>} 
     </>)
 }
 
