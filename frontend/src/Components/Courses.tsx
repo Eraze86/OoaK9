@@ -20,7 +20,7 @@ export function Courses() {
     }, [])
     console.log("kurser", courses)
     let allCoures = courses.map((cours, i: number) => {
-        let courseLink = `/${cours.id}`;
+        let courseLink = `/${cours._id}`;
         return (
             <article key={i} className="mx-2 my-4 py-2 md:flex">
                 <img className="w-full h-36 object-cover md:w-2/4 md:h-64" src={cours.img} />

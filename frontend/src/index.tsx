@@ -17,7 +17,7 @@ import { Admin } from './Components/admin/Admin';
 import { Login } from './Components/admin/Login';
 import { Content } from './Components/admin/Content';
 import { BookCourse } from './Components/Book-course';
-import { ChangeCourses } from './Components/admin/ChangeCourses';
+import { EditCourses } from './Components/admin/EditCourses';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -38,7 +38,7 @@ root.render(
       <Route path="/admin" element={<Login/>}/>
       <Route path="/ooak9" element={<LayoutAdmin/>}>
       <Route index element={<Admin/>}/>
-      <Route path="/ooak9/hantera-kurser" element={<ChangeCourses/>}/>
+      <Route path="/ooak9/hantera-kurser" element={<EditCourses/>}/>
       <Route path="/ooak9/bokningar" element={<Booking/>}/>
       <Route path="/ooak9/media" element={<Media/>}/>
       <Route path="/ooak9/:id" element ={<Content />}></Route>
