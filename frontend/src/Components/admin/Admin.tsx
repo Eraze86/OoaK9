@@ -2,9 +2,16 @@ import { Link} from "react-router-dom";
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { IContent } from "../module/IContent";
-
+import { useNavigate } from "react-router-dom";
 export function Admin() {
-
+    const nav = useNavigate();
+    useEffect(() => {
+        let local = localStorage.getItem("token")
+        if (!local) {
+            nav("/admin")
+            }
+    },[])
+   
 //todo, fixa css i mobilt läge
 //fixa kurs sidan
 //fixa localstorage för att hålla en inloggad,delta om man loggar ut

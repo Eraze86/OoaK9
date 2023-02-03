@@ -8,6 +8,10 @@ export function LayoutAdmin() {
     function menuClick() {
         setIsOpen(false)
     }
+    function logOut(){
+       localStorage.clear();
+
+    }
     return (<>
 
         <header>
@@ -18,7 +22,7 @@ export function LayoutAdmin() {
                     <a href="/ooak9/bokningar" onClick={menuClick}>Bokningar</a>
                     <a href="/ooak9/hantera-kurser" onClick={menuClick}>Kurser</a>
                     <a href="/ooak9/media" onClick={menuClick}>Media</a>
-                    <a href="/admin" onClick={menuClick}>Logga ut</a>
+                    <a href="/admin" onClick={logOut}>Logga ut</a>
                 </div>
                 </nav>
                 <nav className="lg:hidden flex justify-between items-center bg-white h-28 z-10 relative">

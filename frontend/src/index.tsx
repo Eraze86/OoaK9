@@ -19,9 +19,6 @@ import { Content } from './Components/admin/Content';
 import { BookCourse } from './Components/Book-course';
 import { ChangeCourses } from './Components/admin/ChangeCourses';
 
-
-
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
