@@ -11,11 +11,8 @@ var bookingsRouter = require('./routes/bookings');
 var coursesRouter = require('./routes/courses');
 var app = express();
 
-
-
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "pug")
-
 
 // connect mongodb server
 MongoClient.connect("mongodb+srv://eraze86:vTAm4ylx245Gk1kM@ooak9.utw3gt2.mongodb.net/ooak9",  {
@@ -40,14 +37,12 @@ async function init(){
 }
 init()
 // Lösenord: vTAm4ylx245Gk1kM
-
-
 console.log("funkar databasen?",mongoose.connection.readyState)
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser("ukohfkh"));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', adminRouter);

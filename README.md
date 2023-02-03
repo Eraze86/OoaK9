@@ -15,6 +15,7 @@ backend
 - npm install mongodb
 - npm install mongoose
 - npm install bcrypt
+- npm install jsonwebtoken
 
 
 #Get started
