@@ -23,9 +23,10 @@ function SaveCourse(){
             <label>Beskrivning</label>
             <input onChange={handleChange} name="description"/>
             </div>
-
-            <button onClick={SaveCourse}>Spara</button>
-            
+            <div className="absolute bottom-2">
+            <button className="w-24 lg:w-48  mx-6 "  onClick={SaveCourse}>Spara</button>
+            <button className="w-24 lg:w-48  mx-6 " onClick={() => window.location.reload()}>Stäng</button>
+            </div>
             {/* <label>Antal platser</label>
             <input/> */}
         </article>

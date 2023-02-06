@@ -1,77 +1,101 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeDates } from "../module/ChangeDates"
 import { ICourses } from "../module/ICourses"
-import { ICoursesProps } from "../module/ICoursesProps"
+import { IDates } from "../module/IDates"
+import { IDatesProps } from "../module/IDatesProps"
 
-export function AddDates(props: ICoursesProps) {
-    const [courses, setCourses] = useState<ICourses[]>([])
-    useEffect(() => {
-        axios.get<ICourses[]>("http://localhost:3001/courses")
-            .then((response) => {
-                setCourses(response.data)
-            })
-    }, [])
-
-    let printCourse = courses.map((c: ICourses, i: number) => {
-        if (c._id === props._id) {
-            return (
-                <div key={i} className="mr-8 md:w-3/6">
-                    <label className="font-medium">Kurs:</label> {c.name}<br />
-                    <label className="font-medium">Pris:</label> {c.price}<br /><br />
-                    <p>{c.description}</p><br />
-                    {c.dates?.map((d, i: number) => {
-                        return (<div key={i}>
-                            Datum: {d.date}, Platser:{d.number}
-                        </div>)
-                    })}
-                </div>)
-        }
-    })
-    const [dates, setDates] = useState({
-        date: '',
+//kan radera men hittar inte rätt. måste lägga in nytt datum först för att se så det fungerar
+export function AddDates(props: IDatesProps) {
+    const standardProps = new ChangeDates(
+        props._id,
+        props.name,
+        props.dates
+    )
+    const [edit, setEdit] = useState<IDatesProps>(standardProps);
+    const [saveDate, setSaveDate] = useState<IDates[]>([]);
+    const [dateDeleted, setDateDeleted] = useState(false)
+    const [addDate, setAddDate] = useState({
+        date: "",
         number: 0,
-    })
-    function handleDate(e: any) {
-        setDates({
-            ...dates,
-            [e.target.name]: e.target.value
-        });
-    }
-    console.log("Datum", dates)
-    function addMore() {
-//när man trycker lägg till ska ett nytt datum sparas till hooks och printas ut igen men nya datumet tillagt
-        // setCourses({...courses, courses {
-        //     dates{
-        //         date: dates.date,
-        //         number: dates.number
-        //     }
-        // } })
+});
 
+    function handleDate(e: ChangeEvent<HTMLInputElement>) {
+        let name = e.target.name
+        let uppdate = ({ ...addDate, [name]: e.target.value })
+        setAddDate(uppdate)
+    }
+
+    function addMore() {
+        let newDate = {date: addDate.date, number: addDate.number}
+        setSaveDate([...saveDate, newDate])
+    }
+
+    function Save() {
+        axios.post<ICourses>("http://localhost:3001/courses/"+edit._id, saveDate )
+            .then((response) => {
+                console.log("respons", response.data)
+    })
+}
+    function Delete(date: any) {
+        axios.delete<ICourses>("http://localhost:3001/courses/delete",
+            {
+                data:
+                {
+                    id: edit._id,
+                    date: date._id
+                }
+
+            })
+            .then((response) => {
+                console.log("respons", response.data)
+                if (response.status === 201) {
+                    setDateDeleted(true)
+                }
+            })
     }
 
     return (<>
-        <article className=" m-auto p-6 border-2 w-full min-h-[70%] md:h-[70%] md:w-4/6 bg-white  relative  top-28  text-sm">
-            <div className="flex flex-col md:flex-row w-full justify-space">
-                
-                    {printCourse}
-                
-                <div className="mt-4 flex flex-col md:flex ">
+        <h4>Kurs: {edit.name}</h4>
+        <div className="flex flex-col md:flex-row w-full justify-space">
 
-                    <h4>Lägg till datum</h4>
-                    <label>Datum</label>
-                    <input className="w-48 mr-2" onChange={handleDate} name="date" />
-                    <label>Antal platser</label>
-                    <input className="w-12" type="number" onChange={handleDate} name="number" />
-                    <button className="w-36" onClick={addMore}>Lägg till datum</button>
-                </div>
+            <div className="flex flex-col mr-24 w-full">
+
+                {edit.dates.map((date, i: number) => {
+                    return (
+                        <div className="flex justify-between mb-4" key={i}>
+                            <div className="flex "><p className="font-bold">Datum: </p>  {date.date}</div>
+                            <div className="flex "><p className="font-bold ">Platser: </p>  {date.number}
+                                <div className="mx-4 cursor-pointer" onClick={() => { Delete(date) }}>X</div></div>
+
+                        </div>
+                    )
+
+                })}
+                
+                    {saveDate.map((d, i: number)=>{
+                        return(<div key={i} className="flex justify-between mb-4">
+                        <div className="flex "><p className="font-bold">Datum: </p>  {d.date}</div>
+                        <div className="flex "><p className="font-bold ">Platser: </p>  {d.number} </div>
+                        </div>)
+                        })}
+                        
+                       
             </div>
 
-            <button className="w-36">Spara</button>
-        </article>
+            <div className=" flex flex-col md:flex ">
+                <h4 className="mt-0">Lägg till datum</h4>
+                <label>Datum</label>
+                <input className="w-48 mr-2" onChange={handleDate} name="date" />
+                <label>Antal platser</label>
+                <input className="w-12" type="number" onChange={handleDate} name="number" />
+                <button className="w-36" onClick={addMore}>Lägg till datum</button>
+            </div>
+        </div>
+        {dateDeleted && <>Datumet har blivit raderat</>}
+        <div className="absolute bottom-2 ml-0">
+            <button className="w-24 lg:w-48  mr-6 " onClick={Save}>Spara</button>
+            <button className="w-24 lg:w-48  mx-6 " onClick={() => window.location.reload()}>Stäng</button>
+        </div>
     </>)
 }
-
-function setCourses(data: ICourses[]) {
-    throw new Error("Function not implemented.")
-}
-

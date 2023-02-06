@@ -3,7 +3,6 @@ import { ICourses } from "../module/ICourses";
 import axios from "axios";
 import { BookingChanges } from "../module/BookingChanges";
 import { IBookingProps } from "../module/IBookingProps";
-import { IBookCourse } from "../module/IBookCourse";
 
 export function EditBooking(props: IBookingProps) {
     const standardProps = new BookingChanges(

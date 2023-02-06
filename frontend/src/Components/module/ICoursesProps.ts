@@ -1,5 +1,8 @@
 export interface ICoursesProps {
-    _id: string;
-
-  }
+  _id: string;
+  name: string;
+  price: number;
+  img: string;
+  description: string;
+   }
   

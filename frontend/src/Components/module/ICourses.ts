@@ -4,5 +4,5 @@ export interface ICourses {
   price: number;
   img: string;
   description: string;
-  dates: [{date: string; number: number }];
+  dates: [{_id: string, date: string; number: number }];
 }
