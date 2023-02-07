@@ -10,7 +10,7 @@ export function BookCourse() {
     //required och skicka ett mail till kunden att det är bokat med information.  
 
     const [courses, setCourses] = useState<ICourses[]>([])
-    const [courseId, setCourseId] = useState(0)
+    const [courseId, setCourseId] = useState("")
     const [gdpr, setGdpr] = useState(false)
     const [bookingFailed, setBookingFailed] = useState(false)
     const [bookingCreated, setBookingCreated] = useState(false)
@@ -31,7 +31,7 @@ export function BookCourse() {
     let params = useParams();
 
     useEffect(() => {
-        if (params.id) setCourseId(+params.id);
+        if (params.id) setCourseId(params.id);
     }, [courseId]);
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export function BookCourse() {
     useEffect(() => {
         courses.map((course: ICourses) => {
             let uppdate = (
-                { ...bookCourse, price: course.price, course: course.name, })
+                { ...bookCourse, price: course.price, course: course.course, })
             setBookCourse(uppdate)
         })
     }, [courses]);
@@ -97,11 +97,11 @@ export function BookCourse() {
     //map out courses, id id match print the right cours
     //the map out dates, add clickbutton to show dates when clicked
     let showBooking = courses.map((course: ICourses) => {
-        if (course.id === courseId)
+        if (course._id === courseId)
             return (
-                <article key={course.id}>
+                <article key={course._id}>
                     <div>
-                        <h4 className="py-2">{course.name}</h4>
+                        <h4 className="py-2">{course.course}</h4>
                         <h5 className="">Beskrivning:</h5> <h6>{course.description} </h6>
                         <h5 className="py-2">{course.price} kr</h5>
                         <div className="mb-8">
