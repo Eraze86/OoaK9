@@ -1,3 +1,4 @@
+import axios from "axios"
 import { ChangeEvent, useState } from "react"
 import { ICourses } from "../module/ICourses"
 
@@ -10,11 +11,20 @@ export function AddCourse(){
         let uppdate = ({ ...course, [name]: e.target.value })
         setCourse(uppdate)
     }
+    console.log(course)
 function SaveCourse(){
-    
+    axios.post<ICourses>("http://localhost:3001/courses/add", course )
+            .then((response) => {
+                console.log("respons", response.data)
+                if(response.status === 201){
+              console.log("sparad")
+                }else{
+                    console.log("något gick fel")
+                }
+    })
 }
     return(<>
-        <article className="m-auto p-6 border-2 w-full min-h-[70%] md:h-[70%] md:w-3/6 bg-white  relative  top-28  text-sm">
+        
         <div className="flex flex-col">
             <label>Kursnamn</label>
             <input onChange={handleChange} name="course"/>
@@ -29,7 +39,7 @@ function SaveCourse(){
             </div>
             {/* <label>Antal platser</label>
             <input/> */}
-        </article>
+
     </>)
 }
 

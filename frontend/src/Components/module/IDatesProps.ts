@@ -1,6 +1,6 @@
 export interface IDatesProps {
   _id: string;
-  name: string;
+  course: string;
   dates: [
     {
       _id: string,

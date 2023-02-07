@@ -45,7 +45,7 @@ export function BookCourse() {
     useEffect(() => {
         courses.map((course: ICourses) => {
             let uppdate = (
-                { ...bookCourse, price: course.price, course: course.name, })
+                { ...bookCourse, price: course.price, course: course.course, })
             setBookCourse(uppdate)
         })
     }, [courses]);
@@ -101,7 +101,7 @@ export function BookCourse() {
             return (
                 <article key={course._id}>
                     <div>
-                        <h4 className="py-2">{course.name}</h4>
+                        <h4 className="py-2">{course.course}</h4>
                         <h5 className="">Beskrivning:</h5> <h6>{course.description} </h6>
                         <h5 className="py-2">{course.price} kr</h5>
                         <div className="mb-8">

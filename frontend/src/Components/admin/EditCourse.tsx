@@ -9,7 +9,7 @@ export function EditCourse(props: ICoursesProps) {
     const [notSaved, setNotSaved] = useState(false);
     const standardProps = new ChangeCourses(
         props._id,
-        props.name,
+        props.course,
         props.price,
         props.img,
         props.description,
@@ -17,7 +17,7 @@ export function EditCourse(props: ICoursesProps) {
     const [edit] = useState<ChangeCourses>(standardProps);
     const [changes, setChanges] = useState<ICoursesProps>({
         _id: edit._id,
-        name: edit.name,
+        course: edit.course,
         price: edit.price,
         img: edit.img,
         description: edit.description,
@@ -33,13 +33,21 @@ export function EditCourse(props: ICoursesProps) {
         let uppdate = ({ ...changes, [name]: e.target.value })
         setChanges(uppdate)
     }
-console.log("ändringar ",changes)
+    function Delete(){
+        axios.delete<ICoursesProps>("http://localhost:3001/courses/"+edit._id)
+        .then((response) => {
+            if (response.status === 201) {
+               console.log("raderat")
+            } else {
+                console.log("något gick fel")
+            }
+        })
+    }
+
     function Save() {
-        console.log("ändringarna", changes)
-        axios.put<ICoursesProps>("http://localhost:3001/bookings/change", changes)
+        axios.put<ICoursesProps>("http://localhost:3001/courses/change", changes)
             .then((response) => {
                 if (response.status === 201) {
-                    console.log("tillbaka", response.data)
                     setSavedEdit(true)
                 } else {
                     setNotSaved(true)
@@ -53,7 +61,7 @@ console.log("ändringar ",changes)
                 <form className="m-auto w-full  bg-white top-24 p-2 pb-0">
                     <div className="my-6">
                         <label className="font-medium">Kurs: </label>
-                        {edit.name}<br />
+                        {edit.course}<br />
                         Ändra: <input type="number" name="name" onChange={handleChange} />
                     </div>
                     <div className="my-6">
@@ -78,7 +86,7 @@ console.log("ändringar ",changes)
             <div className="mx-4">
                 <p className="mt-4 text-sm font-bold">Bokningen har blivit ändrad</p>
                 <ul className="grid grid-cols-4 grid-flow-col">
-                    <li>Kurs: <p>{changes.name}</p></li>
+                    <li>Kurs: <p>{changes.course}</p></li>
                     <li>Datum: <p>{changes.price}</p></li>
                     <li>Mail: <p>{changes.img}</p></li>
                     <li>Telnr:<p>{changes.description}</p></li>
@@ -86,14 +94,13 @@ console.log("ändringar ",changes)
 
             </div>
         </>}
-        {notSaved && <>
-            <p className="absolute mt-4 font-bold">Något gick fel, försök igen</p></>}
+        {notSaved && <><p className="absolute mt-4 font-bold">Något gick fel, försök igen</p></>}
         <div className="absolute bottom-2">
             <button disabled={savedEdit === true} className="w-24 lg:w-48  mx-6  disabled:bg-gray-300" onClick={Save}>Spara</button>
             <button className="w-24 lg:w-48  mx-6 " onClick={() => window.location.reload()}>Stäng</button>
+            <button className="w-24 lg:w-48  mx-6 bg-red-600" onClick={Delete}>Radera</button>
         </div>
         </article>
-
     </>)
 }
 
