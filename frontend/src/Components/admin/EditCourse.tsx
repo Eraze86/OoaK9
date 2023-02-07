@@ -43,7 +43,7 @@ export function EditCourse(props: ICoursesProps) {
             }
         })
     }
-
+console.log("kurs", edit.course)
     function Save() {
         axios.put<ICoursesProps>("http://localhost:3001/courses/change", changes)
             .then((response) => {
@@ -60,9 +60,9 @@ export function EditCourse(props: ICoursesProps) {
             <div className="flex flex-col md:flex-row w-full justify-space">
                 <form className="m-auto w-full  bg-white top-24 p-2 pb-0">
                     <div className="my-6">
-                        <label className="font-medium">Kurs: </label>
-                        {edit.course}<br />
-                        Ändra: <input type="number" name="name" onChange={handleChange} />
+                        <label className="font-medium">Kurs:</label>{edit.course}
+                        <br />
+                        Ändra: <input type="text" name="course" onChange={handleChange} />
                     </div>
                     <div className="my-6">
                         <label className="font-medium">Pris: </label>
@@ -82,18 +82,7 @@ export function EditCourse(props: ICoursesProps) {
                 </form>
             </div>
    
-        {savedEdit && <>
-            <div className="mx-4">
-                <p className="mt-4 text-sm font-bold">Bokningen har blivit ändrad</p>
-                <ul className="grid grid-cols-4 grid-flow-col">
-                    <li>Kurs: <p>{changes.course}</p></li>
-                    <li>Datum: <p>{changes.price}</p></li>
-                    <li>Mail: <p>{changes.img}</p></li>
-                    <li>Telnr:<p>{changes.description}</p></li>
-                </ul>
-
-            </div>
-        </>}
+        {savedEdit && <><p className="mt-4 text-sm font-bold">Bokningen har blivit ändrad</p></>}
         {notSaved && <><p className="absolute mt-4 font-bold">Något gick fel, försök igen</p></>}
         <div className="absolute bottom-2">
             <button disabled={savedEdit === true} className="w-24 lg:w-48  mx-6  disabled:bg-gray-300" onClick={Save}>Spara</button>

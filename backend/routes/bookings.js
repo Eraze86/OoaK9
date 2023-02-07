@@ -48,8 +48,7 @@ router.put('/change', async function(req, res, next) {
 router.delete('/:id', async function(req, res, next) {
   try{
     await bookingsModel.findByIdAndRemove({_id: req.params.id})
-    console.log("hitta id", req.params.id)
-
+    console.log("id", req.params.id)
     res.status(201).json("Booking deleted")
 
   } catch(error){

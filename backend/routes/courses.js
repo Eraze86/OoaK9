@@ -4,7 +4,7 @@ var path = require('path');
 const cors = require("cors")
 router.use(cors());
 const courseModel = require("../models/course-model")
-
+/////////////Handle courses/////////////
 /* GET courses listing. */
 router.get('/', async function(req, res, next) {
   const getCourses = await courseModel.find()
@@ -13,7 +13,6 @@ router.get('/', async function(req, res, next) {
 });
 
 router.post('/add', async function(req, res, next) {
-  console.log(req.body)
   try{
       const newCourse = new courseModel(req.body)
       console.log("new ", newCourse)
@@ -24,31 +23,40 @@ router.post('/add', async function(req, res, next) {
       console.log("fel", error)
       res.status(error)
       return
-    }
-    
-
+    } 
 });
-//har vi rätt adress när vi ska ändra och radera? kolla!
-// router.put('/change', async function(req, res, next) {
 
-//   try{
-//     const { _id, course, date, phone, mail } = req.body
-//     console.log("bakend id", _id)
-//       let booking = await bookingsModel.findByIdAndUpdate({_id:_id},{ $set:{course:course,data:date,phone:phone,mail:mail}})
-//       res.status(201).json(booking)
+//uppdate course with new information
+router.put('/change', async function(req, res, next) {
+  try{
+    const { _id, course, price, img, description } = req.body
+      let changeCourse = await courseModel.findByIdAndUpdate({_id:_id},{ $set:{course:course,price:price,img:img,description:description}})
+      res.status(201).json("course is updated")
     
-//     } catch(error){
-//       console.log("fel", error)
-//       res.status(error)
-//       return
-//     }
-// })
+    } catch(error){
+      console.log("fel", error)
+      res.status(error)
+      return
+    }
+})
+
+router.delete('/:id', async function(req, res, next) {
+  try{
+    await courseModel.findByIdAndRemove({_id: req.params.id})
+    res.status(201).json("Coruse deleted")
+
+  } catch(error){
+    console.log("fel", error)
+    res.status(error)
+    return
+  }
+});
   
+/////////Handle dates on courses////////////
 
 //find id, push new date in to right course
 router.post('/:id', async function(req, res, next) {
   try{
- 
     const find = req.params.id
     await courseModel.findByIdAndUpdate({_id:find},{ $push:{dates: req.body}})
       res.status(201).json("date is saved")
@@ -70,21 +78,6 @@ router.post('/:id', async function(req, res, next) {
       console.log("course rätt?" ,id)
       console.log("datum rätt?" , date)    
         res.status(201).json("Booking deleted")
- 
-    } catch(error){
-      console.log("fel", error)
-      res.status(error)
-      return
-    }
-  });
-
-  router.delete('/delete/', async function(req, res, next) {
-    try{
-    let {id} = req.body
-      // { $pull: { <field1>: <value|condition>, <field2>: <value|condition>, ... } }
-      await courseModel.findByIdAndRemove({id})
- 
-        res.status(201).json("Coruse deleted")
  
     } catch(error){
       console.log("fel", error)
