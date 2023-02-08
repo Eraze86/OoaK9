@@ -12,27 +12,34 @@ export function AddDates(props: IDatesProps) {
         props.dates
     )
     const [edit] = useState<IDatesProps>(standardProps);
-    const [saveDate, setSaveDate] = useState<IDates[]>([]);
+    const [saveDate, setSaveDate] = useState({
+        date: "",
+        number: 0,
+    });
     const [dateDeleted, setDateDeleted] = useState(false)
     const [dateSaved, setDateSaved] = useState(false)
+    const [showSaved, setShowSaved] = useState(false)
     const [actionFailed, setActionFailed] = useState(false)
     const [addDate, setAddDate] = useState({
         id: 0,
         date: "",
         number: 0,
     });
-
+    
     //get changes and save to a hook
     function handleDate(e: ChangeEvent<HTMLInputElement>) {
         let name = e.target.name
-        let uppdate = ({ ...addDate, [name]: e.target.value })
+        let uppdate = ({ ...addDate, [name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value })
+        console.log("addDate", uppdate)
         setAddDate(uppdate)
     }
     //get the dates, and presave them to a list.
     function addMore() {
         let newDate = { date: addDate.date, number: addDate.number }
-        setSaveDate([...saveDate, newDate])
         console.log("new", newDate)
+        setShowSaved(true)
+        setSaveDate(newDate)
+   
     }
 
     //get the list with new dates and save to the database.  
@@ -47,18 +54,10 @@ export function AddDates(props: IDatesProps) {
                 }
             })
     }
-    //kan inte radera än, varför?
-    //send the course id, and the date id thats going to be deleted. 
-    function Delete(date: any) {
-        axios.delete<ICourses>("http://localhost:3001/courses/delete/date",
-            {
-                data:
-                {
-                    id: edit._id,
-                    date: date._id
-                }
 
-            })
+    //delete date
+    function Delete(date: any) {
+        axios.delete<ICourses>("http://localhost:3001/dates/"+date._id)
             .then((response) => {
                 console.log("respons", response.data)
                 if (response.status === 201) {
@@ -85,12 +84,12 @@ export function AddDates(props: IDatesProps) {
                 })}
 
                 <h5>Datum att lägga till</h5>
-                {saveDate.map((d, i: number) => {
-                    return (<div key={i} className="flex justify-between mb-4">
-                        <div className="flex " ><p className="font-bold" >Datum: </p>  {d.date}</div>
-                        <div className="flex "><p className="font-bold ">Platser: </p>  {d.number} </div>
-                    </div>)
-                })}
+     
+                   {showSaved && <div  className="flex justify-between mb-4">
+                        <div className="flex " ><p className="font-bold" >Datum: </p>  {saveDate.date}</div>
+                        <div className="flex "><p className="font-bold ">Platser: </p>  {saveDate.number} </div>
+                    </div>} 
+               
 
 
             </div>

@@ -1,24 +1,19 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-// import apiCours from "../../courses.json"
 import { ICourses } from "./module/ICourses"
-// import { jsonCours } from "../../public/courses.json"
 
 export function Courses() {
-    const [courses, setCourses] = useState<ICourses[]>(
-        []
-    )
+    const [courses, setCourses] = useState<ICourses[]>([])
 
     useEffect(() => {
-      
             axios.get<ICourses[]>("http://localhost:3001/courses")
             .then((response) => {    
                 setCourses(response.data) 
                 localStorage.setItem("courses", JSON.stringify(response.data))
             })   
     }, [])
-    console.log("kurser", courses)
+
     let allCoures = courses.map((cours, i: number) => {
         let courseLink = `/${cours._id}`;
         return (

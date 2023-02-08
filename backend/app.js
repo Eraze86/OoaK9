@@ -9,6 +9,7 @@ var adminRouter = require('./routes/admin');
 var mediaRouter = require('./routes/media');
 var bookingsRouter = require('./routes/bookings');
 var coursesRouter = require('./routes/courses');
+var datesRouter = require('./routes/dates');
 var app = express();
 
 app.set("views", path.join(__dirname, "views"))
@@ -26,8 +27,9 @@ app.locals.db = db;
 
 async function init(){
     try {
+        (mongoose.set('strictQuery', false))
         await mongoose.connect("mongodb+srv://eraze86:vTAm4ylx245Gk1kM@ooak9.utw3gt2.mongodb.net/ooak9") 
-        // .then(mongoose.set('strictQuery', false))
+      
         console.log("databas is connected") 
          
     } catch (error) {
@@ -49,6 +51,9 @@ app.use('/', adminRouter);
 app.use('/bookings', bookingsRouter);
 app.use('/media', mediaRouter);
 app.use('/courses', coursesRouter);
+app.use('/dates', datesRouter);
+
+
 
 
 module.exports = app;

@@ -4,18 +4,19 @@ import { ICourses } from "./module/ICourses"
 import courseImg from "../img/11.jpg"
 import { IBookCourse } from "./module/IBookCourse";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function BookCourse() {
-    // skicka info till server. Även antal platser kvar till kursen.
-    //required och skicka ett mail till kunden att det är bokat med information.  
-
-    const [courses, setCourses] = useState<ICourses[]>([])
-    const [courseId, setCourseId] = useState("")
+    const nav = useNavigate();
+    let params = useParams();
+  
     const [gdpr, setGdpr] = useState(false)
     const [bookingFailed, setBookingFailed] = useState(false)
     const [bookingCreated, setBookingCreated] = useState(false)
+    const [courses, setCourses] = useState<ICourses[]>([])
+    const [courseId, setCourseId] = useState("")
+    const [dateId, setDateId] = useState("")
     const [bookCourse, setBookCourse] = useState<IBookCourse>({
-
         course: "",
         price: 0,
         date: "",
@@ -27,8 +28,6 @@ export function BookCourse() {
         messenge: "",
         gdpr: false
     })
-
-    let params = useParams();
 
     useEffect(() => {
         if (params.id) setCourseId(params.id);
@@ -52,8 +51,18 @@ export function BookCourse() {
 
     //take the date from select option and set it in booking
     function handleDate(e: any) {
-        let uppdate = ({ ...bookCourse, date: e })
-        setBookCourse(uppdate)
+setDateId(e)
+courses.map((c)=>{
+    c.dates.map((d)=>{
+        console.log("hur", d.date)
+        console.log("e", e, "d", d._id)
+        if(e ===d._id ){
+            let uppdate = ({ ...bookCourse, date: d.date })
+            setBookCourse(uppdate)
+        }
+    })
+})
+        
     }
 
     //check if gdpr is checked. if false, set true. else set false
@@ -74,7 +83,7 @@ export function BookCourse() {
     //look for changes in the form, set in booking. 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         let name = e.target.name
-        let uppdate = ({ ...bookCourse, [name]: e.target.value })
+        let uppdate = ({ ...bookCourse, [name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value })
         setBookCourse(uppdate)
     }
 
@@ -86,6 +95,7 @@ export function BookCourse() {
             .then((response) => {
                 if (response.status === 201) {
                     setBookingCreated(true)
+                    avalibleSpots()
                 }
             })
         setBookingFailed(true)
@@ -93,7 +103,16 @@ export function BookCourse() {
             setBookingFailed(false)
         }, 3000);
     }
-
+function avalibleSpots(){
+    axios.put<ICourses>("http://localhost:3001/dates/edit",{dateid: dateId,})
+        .then((response) => {
+            if (response.status === 201) {
+                console.log("Antal ändrat")
+            }else{
+                console.log("funkade ej")
+            }
+        })
+}
     //map out courses, id id match print the right cours
     //the map out dates, add clickbutton to show dates when clicked
     let showBooking = courses.map((course: ICourses) => {
@@ -117,7 +136,7 @@ export function BookCourse() {
                                             return null
                                         }
                                         return (
-                                            <option key={i} value={days.date} className="mx-2">
+                                            <option key={i} value={days._id} className="mx-2">
                                                 {days.date},
                                                 Platser kvar: {days.number}
                                             </option>)
@@ -176,7 +195,7 @@ export function BookCourse() {
                 <div className="fixed border-4 mx-[10%] md:mx-[30%] top-48 bg-white w-72 p-8">
 
                     <p>Din bokning har mottagits. Det kommer ett bekräftelsemail i din inkorg på angivna mail</p>
-                    <button className="w-full" onClick={() => setBookingCreated(false)}>Stäng</button>
+                    <button className="w-full" onClick={() => nav("/courses")}>Stäng</button>
                 </div>
             </div>
 
