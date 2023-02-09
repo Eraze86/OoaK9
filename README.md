@@ -10,6 +10,10 @@ frontend
 - npx tailwindcss init -p
 - npm i react-router-dom
 - npm i axios
+- npm i tinymce
+- npm install --save @tinymce/tinymce-react
+- npm install @emailjs/browser --save
+- npm install emailjs-com
 backend
 - npm i express-generator --no-view
 - npm install mongodb

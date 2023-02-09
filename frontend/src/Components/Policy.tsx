@@ -1,34 +1,33 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { IContent } from "./module/IContent"
+
 export function Policy(){
+    const [content, setContent] = useState<IContent[]>([])
+
+    useEffect(() => {
+        axios.get<IContent[]>("http://localhost:3001/")
+        .then((response) => {    
+          console.log("content", response.data)
+            setContent(response.data) 
+        })   
+    },[])
+
+    
+    let printContent = content.map((c: IContent, i: number)=>{
+    if(c._id=== "63e4a709dae275b3bd4dc6b2"){
+   return( <article key={i} className=" p-2">
+        <h1>{c.name}</h1>
+        <span dangerouslySetInnerHTML={{ __html: c.text }}></span>
+        </article>
+   )}
+    })
+
+    
 
     return(<>
     
     <section>
-        <article  className=" p-2">
-        <h1>Policy</h1>
-        <span>  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.<br/>
-            
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.<br/>
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-            </span>
-            </article>
+        {printContent}
             </section></>)
 }

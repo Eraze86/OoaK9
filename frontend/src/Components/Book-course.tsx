@@ -11,7 +11,6 @@ export function BookCourse() {
     let params = useParams();
   
     const [gdpr, setGdpr] = useState(false)
-    const [bookingFailed, setBookingFailed] = useState(false)
     const [bookingCreated, setBookingCreated] = useState(false)
     const [courses, setCourses] = useState<ICourses[]>([])
     const [courseId, setCourseId] = useState("")
@@ -98,10 +97,7 @@ courses.map((c)=>{
                     avalibleSpots()
                 }
             })
-        setBookingFailed(true)
-        setTimeout(() => {
-            setBookingFailed(false)
-        }, 3000);
+
     }
 function avalibleSpots(){
     axios.put<ICourses>("http://localhost:3001/dates/edit",{dateid: dateId,})
@@ -177,7 +173,7 @@ function avalibleSpots(){
                                 <label>Godkänner Gdpr*</label>
                                 <input required type="checkbox" name="gdpr" className="w-4 h-4 mx-4" onClick={addGdpr} />
                             </div>
-                            {bookingFailed && <><p className="text-red-500">Vänligen fyll i alla obligatoriska fält</p></>}
+                            
                             <SubmitButton />
                         </form>
 
@@ -195,7 +191,7 @@ function avalibleSpots(){
                 <div className="fixed border-4 mx-[10%] md:mx-[30%] top-48 bg-white w-72 p-8">
 
                     <p>Din bokning har mottagits. Det kommer ett bekräftelsemail i din inkorg på angivna mail</p>
-                    <button className="w-full" onClick={() => nav("/courses")}>Stäng</button>
+                    <button className="w-full" onClick={() => nav("/kurser")}>Stäng</button>
                 </div>
             </div>
 

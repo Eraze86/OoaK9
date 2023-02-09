@@ -1,40 +1,40 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import AbouteImg from "../img/11.jpg";
+import { IContent } from "./module/IContent";
 
-export function About(){
+export function About() {
+    const [content, setContent] = useState<IContent[]>([])
 
-    return(<>
-     <section className="md:flex">
-        <article className=" p-2 md: w-3/4 md:pr-8">
-        <h1>Om mig</h1>
-        <span>  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.<br/>
-            
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.<br/>
+    useEffect(() => {
+        axios.get<IContent[]>("http://localhost:3001/")
+            .then((response) => {
+                console.log("content", response.data)
+                setContent(response.data)
+            })
+    }, [])
 
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-            </span>
-            </article>
+    let printContent = content.map((c: IContent, i: number) => {
+        if (c._id === "63e4a709dae275b3bd4dc6af") {
+            return (
+                        <article key={i} className=" p-2 md:w-2/4">
+                            <h1>{c.name}</h1>
+                            <span dangerouslySetInnerHTML={{ __html: c.text }}></span>
+                        </article>
+            )
+        }
 
+    })
+
+
+
+
+    return (<>
+    <section className="flex flex-col md:flex-row md:justify-between">
+    {printContent}
             <article className=" p-2 md:w-1/4 md:pt-16">
-                <img className="" src={AbouteImg}/>
+                <img className="" src={AbouteImg} />
             </article>
-            </section>
+        </section>
     </>)
 }
