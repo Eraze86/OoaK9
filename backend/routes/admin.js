@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require("path");
 const cors = require("cors");
 router.use(cors());
-const content = require("../content.json");
+const contentModel = require("../models/content-model");
 const userModel = require("../models/user-model");
 bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -36,10 +36,24 @@ router.post("/user", async function (req, res, next) {
 });
 
 /* GET home page. */
-router.get("/content", function (req, res, next) {
-  res.send(content);
-  //  console.log("vad skickas ",content)
+router.get("/", async function (req, res, next) {
+  const getCourses = await contentModel.find();
+    res.json(getCourses)
+ 
 });
+router.put('/edit', async function(req, res, next) {
+  try{
+  console.log("req", req.body)
+    const { _id, name, text, img} = req.body
+      await contentModel.findByIdAndUpdate({_id:_id},{ $set:{name:name,text:text,img:img}})
+      res.status(201).json("content is updated")
+    
+    } catch(error){
+      console.log("fel", error)
+      res.status(error)
+      return
+    }
+})
 
 // router.post("/conent/id", function (req, res, next) {});
 

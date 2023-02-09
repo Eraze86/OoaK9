@@ -41,8 +41,6 @@ root.render(
       <Route path="/ooak9/hantera-kurser" element={<EditCourses/>}/>
       <Route path="/ooak9/bokningar" element={<Booking/>}/>
       <Route path="/ooak9/media" element={<Media/>}/>
-      <Route path="/ooak9/:id" element ={<Content />}></Route>
-
       </Route>
     </Routes>
   </BrowserRouter>

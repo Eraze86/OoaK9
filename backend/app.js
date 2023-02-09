@@ -53,7 +53,4 @@ app.use('/media', mediaRouter);
 app.use('/courses', coursesRouter);
 app.use('/dates', datesRouter);
 
-
-
-
 module.exports = app;

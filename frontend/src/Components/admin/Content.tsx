@@ -1,62 +1,64 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import axios from "axios";
+import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeContent } from "../module/changeContent";
 import { IContent } from "../module/IContent";
 
-export function Content() {
-
-    const [contentId, setContentId] = useState(0)
-    const [content, setContent] = useState<IContent[]>([])
-
-    //get params, save to hook
-    let params = useParams();
-
-    useEffect(() => {
-        if (params.id) setContentId(+params.id);
-    }, [contentId]);
-
-    useEffect(() => {
-        //save content id to hook, if params and localstorage is the same
-        let local = localStorage.getItem("content")
-        if (local) {
-                setContent(JSON.parse(local))
-            }
-   
-            
-        
-    }, []);
-    console.log("localstorage", content)
-   
-    let contentImg = content.map((con: IContent) => {
-
-      if(con.id === contentId)
-        return (<>
-            <div key={con.id}>{con.img}</div></>)
+export function Content(props: IContent) {
+    const [savedEdit, setSavedEdit] = useState(false);
+    const [notSaved, setNotSaved] = useState(false);
+    const standardProps = new ChangeContent(
+        props._id,
+        props.name,
+        props.text,
+        props.img,
+    )
+    const [edit] = useState<ChangeContent>(standardProps);
+    const [changes, setChanges] = useState<IContent>({
+        _id: edit._id,
+        name: edit.name,
+        text: edit.text,
+        img: edit.img
     })
-
-    let showContent = content.map((con: IContent) => {
-        if(con.id === contentId)
-        return (<><section key={con.id}>
-            <article>
-                <p>Namn:</p>{con.name}
-                <input />
-                <button>Ändra</button>
-            </article>
-            <article>
-                <p>Text:</p>{con.text}
-                <input />
-                <button>Ändra</button>
-            </article>
-            <article>
-                <p>Media:</p>
-                <div>{contentImg}</div>
-                <button>Ändra</button>
-            </article>
-        </section>
-        </>)
-    })
+    //get value from input, save to hook
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+        let name = e.target.name
+        let uppdate = ({ ...changes, [name]: e.target.value })
+        setChanges(uppdate)
+    }
+    //get value from textarea, save to hook
+    function handleText(e: ChangeEvent<HTMLTextAreaElement>) {
+        let name = e.target.name
+        let uppdate = ({ ...changes, [name]: e.target.value })
+        setChanges(uppdate)
+    }
+    //send changes , show right messenge 
+    function Save() {
+        axios.put<IContent>("http://localhost:3001/edit", changes)
+            .then((response) => {
+                if (response.status === 201) {
+                    setSavedEdit(true)
+                } else { 
+                    setNotSaved(true) }
+            })
+    }
 
     return (<>
-        {showContent}
-
+        <section>
+            <article className="p-2">
+                <h3>{edit.name}</h3>
+            </article>
+            <article className="p-2">
+                <span>{edit.text}</span><br />
+                <textarea className="w-96 h-48 border" name="text" onChange={handleText} />
+            </article>
+            <article className="p-2">
+                <p>Media:</p>
+                <div>{edit.img}</div>
+                <input type="file" name="img" onChange={handleChange} />
+            </article>
+            {savedEdit && <><p className="mt-4 text-sm font-bold">Ändringen är sparad</p></>}
+            {notSaved && <><p className="absolute mt-4 font-bold">Något gick fel, försök igen</p></>}
+            <button onClick={Save}>Spara</button>
+        </section>
     </>)
 }

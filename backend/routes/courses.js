@@ -15,14 +15,6 @@ router.get('/', async function(req, res, next) {
     res.json(getCourses)
 });
 
-router.get('/dates', async function(req, res, next) {
-
-  const dates = await datesModel.find().exec();
-  console.log("dates", dates)
-    res.json(dates)
-});
-
-
 router.post('/add', async function(req, res, next) {
   try{
       const newCourse = new courseModel(req.body)

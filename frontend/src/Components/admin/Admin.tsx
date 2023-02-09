@@ -3,37 +3,40 @@ import { useEffect, useState } from "react"
 import axios from "axios";
 import { IContent } from "../module/IContent";
 import { useNavigate } from "react-router-dom";
+import { Content } from "./Content";
 export function Admin() {
+
     const nav = useNavigate();
     useEffect(() => {
         let local = localStorage.getItem("token")
-        if (!local) {
-            nav("/admin")
-            }
+        if (!local) {nav("/admin")}
     },[])
    
-//todo, fixa css i mobilt läge
-//fixa kurs sidan
-//fixa localstorage för att hålla en inloggad,delta om man loggar ut
-
 //Get data and save in in a hook, save to local storage
 const [content, setContent] = useState<IContent[]>([])
 useEffect(() => {
-    axios.get<IContent[]>("http://localhost:3001/content")
+    axios.get<IContent[]>("http://localhost:3001/")
     .then((response) => {    
         setContent(response.data) 
-        localStorage.setItem("content", JSON.stringify(response.data))
     })   
-},[])
 
+},[])
+const [editTheContent, setEditTheContent] = useState(false)
+const [editContent, setEditContent] = useState<IContent>({
+    _id: "",
+    name: "",
+    text: "",
+    img: [],
+})
+function edit(c: IContent){
+    setEditTheContent(true)
+    setEditContent(c)
+}
 //map content out, add a param to each
 let printContent = content.map((con, i:number) => {
-    let conLink = `/ooak9/${con.id}`;
-    return(<>
- 
- <Link className="mr-2" key={i} to={conLink}><button>{con.name}</button></Link>
-
-    </>)
+    return(
+ <button  className="mr-2" key={i} onClick={() => { edit(con) }}>{con.name}</button>
+    )
 })
     return (<>
     
@@ -47,6 +50,10 @@ let printContent = content.map((con, i:number) => {
         <article className="flex w-full flex-wrap">   
             {printContent}</article>
             </section>
-    
+            {editTheContent && <><Content
+             _id={editContent._id} 
+             name={editContent.name} 
+             text={editContent.text}
+             img={editContent.img}/></>}
     </>)
 }
