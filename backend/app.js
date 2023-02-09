@@ -46,4 +46,9 @@ app.use('/media', mediaRouter);
 app.use('/courses', coursesRouter);
 app.use('/dates', datesRouter);
 
+// {
+//     "rewrites": [{ "source": "/routes/(.*)", "destination": "/index.js" }]
+//   }
+
+
 module.exports = app;
