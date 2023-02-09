@@ -7,7 +7,7 @@ const MongoClient = require ("mongodb").MongoClient
 require('dotenv').config()
 
 
-var adminRouter = require('./routes/admin');
+var indexRouter = require('./routes/index');
 var mediaRouter = require('./routes/media');
 var bookingsRouter = require('./routes/bookings');
 var coursesRouter = require('./routes/courses');
@@ -40,7 +40,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("ukohfkh"));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', adminRouter);
+app.use('/', indexRouter);
 app.use('/bookings', bookingsRouter);
 app.use('/media', mediaRouter);
 app.use('/courses', coursesRouter);
