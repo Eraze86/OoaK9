@@ -1,6 +1,6 @@
 export interface IContent{
-id: number,
-name: String,
-text: String,
+_id: string,
+name: string,
+text: string,
 img:[]
 }
