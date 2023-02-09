@@ -13,25 +13,21 @@ export function About() {
                 setContent(response.data)
             })
     }, [])
-
+    //se if id matches, show right content
     let printContent = content.map((c: IContent, i: number) => {
-        if (c._id === "63e4a709dae275b3bd4dc6af") {
+        if (c._id === "63e4a709dae275b3bd4dc6b0") {
             return (
-                        <article key={i} className=" p-2 md:w-2/4">
-                            <h1>{c.name}</h1>
-                            <span dangerouslySetInnerHTML={{ __html: c.text }}></span>
-                        </article>
+                <article key={i} className=" p-2 md:w-2/4">
+                    <h1>{c.name}</h1>
+                    <span dangerouslySetInnerHTML={{ __html: c.text }}></span>
+                </article>
             )
         }
-
     })
 
-
-
-
     return (<>
-    <section className="flex flex-col md:flex-row md:justify-between">
-    {printContent}
+        <section className="flex flex-col md:flex-row md:justify-between">
+            {printContent}
             <article className=" p-2 md:w-1/4 md:pt-16">
                 <img className="" src={AbouteImg} />
             </article>

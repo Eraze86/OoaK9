@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 export function BookCourse() {
     const nav = useNavigate();
     let params = useParams();
-  
     const [gdpr, setGdpr] = useState(false)
     const [bookingCreated, setBookingCreated] = useState(false)
     const [courses, setCourses] = useState<ICourses[]>([])
@@ -35,9 +34,7 @@ export function BookCourse() {
     useEffect(() => {
         //save content id to hook, if params and localstorage is the same
         let local = localStorage.getItem("courses")
-        if (local) {
-            setCourses(JSON.parse(local))
-        }
+        if (local) { setCourses(JSON.parse(local)) }
     }, []);
 
     useEffect(() => {
@@ -48,20 +45,17 @@ export function BookCourse() {
         })
     }, [courses]);
 
-    //take the date from select option and set it in booking
+    //Save date id, and add date to booking
     function handleDate(e: any) {
-setDateId(e)
-courses.map((c)=>{
-    c.dates.map((d)=>{
-        console.log("hur", d.date)
-        console.log("e", e, "d", d._id)
-        if(e ===d._id ){
-            let uppdate = ({ ...bookCourse, date: d.date })
-            setBookCourse(uppdate)
-        }
-    })
-})
-        
+        setDateId(e)
+        courses.map((c) => {
+            c.dates.map((d) => {
+                if (e === d._id) {
+                    let uppdate = ({ ...bookCourse, date: d.date })
+                    setBookCourse(uppdate)
+                }
+            })
+        })
     }
 
     //check if gdpr is checked. if false, set true. else set false
@@ -69,8 +63,9 @@ courses.map((c)=>{
         setGdpr(!gdpr)
         let uppdate = ({ ...bookCourse, gdpr: !gdpr })
         setBookCourse(uppdate)
-
     }
+
+    //Botten disable until all is filled to make a booking
     function SubmitButton() {
         if (bookCourse.name && bookCourse.phone && bookCourse.mail && bookCourse.date && gdpr === true) {
             return <button className="bg-primary" type="submit" onClick={sendBooking}>Skicka</button>
@@ -97,19 +92,19 @@ courses.map((c)=>{
                     avalibleSpots()
                 }
             })
-
     }
-function avalibleSpots(){
-    axios.put<ICourses>("http://localhost:3001/dates/edit",{dateid: dateId,})
-        .then((response) => {
-            if (response.status === 201) {
-                console.log("Antal ändrat")
-            }else{
-                console.log("funkade ej")
-            }
-        })
-}
-    //map out courses, id id match print the right cours
+
+    //send dateid, -1 on spots avalible on that date
+    function avalibleSpots() {
+        axios.put<ICourses>("http://localhost:3001/dates/edit", { dateid: dateId, })
+            .then((response) => {
+                if (response.status === 201) {
+                    console.log("Number changed")
+                }
+            })
+    }
+
+    //map out courses, if id matches
     //the map out dates, add clickbutton to show dates when clicked
     let showBooking = courses.map((course: ICourses) => {
         if (course._id === courseId)
@@ -125,7 +120,7 @@ function avalibleSpots(){
                                 <option>Välj datum </option>
 
                                 {course.dates?.map((days, i: number) => {
-                                    //kolla om några tider är fulla (antal platser), printa ut de som finns
+                                    //Is there any spot, if not dont show
                                     if (days.number > 0) {
                                         if (!days) {
                                             console.log("null")
@@ -148,13 +143,11 @@ function avalibleSpots(){
 
     return (<>
         <main className="lg:flex lg:mx-24">
-
             <section className="w-5/6 lg:m-12 lg:w-3/6">
                 <h1 className="mt-0">Bokning</h1>
                 Alla fält med * är obligatoriska
                 {showBooking}
                 <article>
-
                     <div className="w-full">
                         <form className="flex flex-col">
                             <label>Ägare:*</label>
@@ -173,19 +166,19 @@ function avalibleSpots(){
                                 <label>Godkänner Gdpr*</label>
                                 <input required type="checkbox" name="gdpr" className="w-4 h-4 mx-4" onClick={addGdpr} />
                             </div>
-                            
                             <SubmitButton />
                         </form>
-
                     </div>
                 </article>
             </section >
+
             <section className="lg:m-12 lg:w-3/6">
                 <article className="">
-                    <img className="" src={courseImg} />
+                    <img className="max-w-sm" src={courseImg} />
                 </article>
             </section>
         </main>
+
         {bookingCreated && <>
             <div className="m-auto w-screen h-full fixed top-0  backdrop-blur">
                 <div className="fixed border-4 mx-[10%] md:mx-[30%] top-48 bg-white w-72 p-8">
@@ -194,8 +187,6 @@ function avalibleSpots(){
                     <button className="w-full" onClick={() => nav("/kurser")}>Stäng</button>
                 </div>
             </div>
-
         </>}
-
     </>)
 }

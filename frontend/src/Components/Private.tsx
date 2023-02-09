@@ -50,7 +50,7 @@ export function Private() {
                     <label>E-mail:</label><br />
                     <input className="border w-full" name="user_email" placeholder="johnDoe@hotmail.se" ></input><br />
                     <label>Telefonnr:</label><br />
-                    <input className="border w-full" name="user_phone"placeholder="070x-xxxxxx" ></input><br />
+                    <input className="border w-full" name="user_phone" placeholder="070x-xxxxxx" ></input><br />
                     <label>Meddelande</label><br />
                     <textarea className="border w-full h-36" name="user_text" placeholder="Skriv vad du är intresserad av här" ></textarea><br />
                     <input type="submit" value="Skicka" />
@@ -65,6 +65,7 @@ export function Private() {
                 </div>
             </div>
            </>}
+           {error && <>Något gick fel, försök igen</>}
         </section>
     </>)
 }
