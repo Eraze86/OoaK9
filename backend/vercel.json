@@ -10,7 +10,7 @@
       {
    
         "src": "/(.*)",
-        "dest": "admin.js"
+        "dest": "app.js"
       }
     ]
   }
