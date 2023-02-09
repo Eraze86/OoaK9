@@ -6,6 +6,7 @@ const mongoose = require("mongoose")
 const MongoClient = require ("mongodb").MongoClient
 require('dotenv').config()
 
+
 var adminRouter = require('./routes/admin');
 var mediaRouter = require('./routes/media');
 var bookingsRouter = require('./routes/bookings');
