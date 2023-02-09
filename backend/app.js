@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require("mongoose")
 const MongoClient = require ("mongodb").MongoClient
+require('dotenv').config()
 
 var adminRouter = require('./routes/admin');
 var mediaRouter = require('./routes/media');
@@ -16,22 +17,13 @@ app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "pug")
 
 // connect mongodb server
-MongoClient.connect("mongodb+srv://eraze86:vTAm4ylx245Gk1kM@ooak9.utw3gt2.mongodb.net/ooak9",  {
-    useUnifiedTopology: true,
-    useNewUrlParser: true, 
-})
-.then(client => {console.log("Vi är uppkopplade")
-const db = client.db("ooak9databas")
-app.locals.db = db;
-})
+
 
 async function init(){
     try {
         (mongoose.set('strictQuery', false))
-        await mongoose.connect("mongodb+srv://eraze86:vTAm4ylx245Gk1kM@ooak9.utw3gt2.mongodb.net/ooak9") 
-      
+        await mongoose.connect(process.env.MONGO_URI)
         console.log("databas is connected") 
-         
     } catch (error) {
         console.log("database error", error)
     }
