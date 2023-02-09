@@ -32,7 +32,7 @@ export function Login() {
     function logIn() {
         axios.post<IUsers[]>("http://localhost:3001/user", user)
             .then((response) => {
-                console.log("vad får bi?", response.data)
+              
                 if (response.status === 201) {
                     localStorage.setItem("token", JSON.stringify(response.data))
                     nav("/ooak9")

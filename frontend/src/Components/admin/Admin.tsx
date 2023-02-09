@@ -17,6 +17,7 @@ const [content, setContent] = useState<IContent[]>([])
 useEffect(() => {
     axios.get<IContent[]>("http://localhost:3001/")
     .then((response) => {    
+
         setContent(response.data) 
     })   
 
@@ -50,10 +51,16 @@ let printContent = content.map((con, i:number) => {
         <article className="flex w-full flex-wrap">   
             {printContent}</article>
             </section>
-            {editTheContent && <><Content
+            {editTheContent && <>
+                <section className="m-auto w-screen h-full fixed left-0 top-0 z-10 backdrop-blur ">
+                <article className=" m-auto p-6 border-2 w-full  z-20 bg-white  relative  top-0  text-sm">
+                <Content
              _id={editContent._id} 
              name={editContent.name} 
              text={editContent.text}
-             img={editContent.img}/></>}
+             img={editContent.img}/>
+                </article>
+            </section>
+             </>}
     </>)
 }

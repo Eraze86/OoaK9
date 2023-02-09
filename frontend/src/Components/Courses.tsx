@@ -5,7 +5,7 @@ import { ICourses } from "./module/ICourses"
 
 export function Courses() {
     const [courses, setCourses] = useState<ICourses[]>([])
-
+//save courses to localstorages
     useEffect(() => {
             axios.get<ICourses[]>("http://localhost:3001/courses")
             .then((response) => {    
@@ -13,7 +13,7 @@ export function Courses() {
                 localStorage.setItem("courses", JSON.stringify(response.data))
             })   
     }, [])
-
+//map out all courses, with a paramslink
     let allCoures = courses.map((cours, i: number) => {
         let courseLink = `/${cours._id}`;
         return (
@@ -33,6 +33,5 @@ export function Courses() {
             <h1 className="mx-2 mt-8">Kurser</h1>
             {allCoures}
         </section>
-
     </>)
 }
