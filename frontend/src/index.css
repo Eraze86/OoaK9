@@ -46,7 +46,7 @@ label{
       @apply w-full lg:w-72 p-2
     }
     button {
-      @apply bg-primary w-72 lg:w-96 p-2 text-left my-2 lg:my-4 h-10  font-bold
+      @apply bg-primary-light w-72 lg:w-96 p-2 text-left my-2 lg:my-4 h-10  font-bold
     }
     .line{
       @apply bg-black w-6 h-1 rounded z-10 flex flex-col m-1

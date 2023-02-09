@@ -1,8 +1,8 @@
 export interface ICourses {
-  id: number;
-  name: string;
+  _id: string;
+  course: string;
   price: number;
   img: string;
   description: string;
-  dates: [{date: string; number: number }];
+  dates: [{_id: string, date: string; number: number }];
 }

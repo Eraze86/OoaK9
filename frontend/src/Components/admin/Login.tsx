@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IUsers } from "../module/IUsers";
 import logoImg from "../../img/logo.png";
@@ -6,12 +6,23 @@ import axios from "axios";
 
 export function Login() {
     const nav = useNavigate();
-
+    //check if token, keep loggedin
+    useEffect(() => {
+        let local = localStorage.getItem("token")
+        if (local) {
+            nav("/ooak9")
+            }
+            
+          
+ 
+    },[])
+    
     const [wrong, setWrong] = useState(false)
     const [user, setUser] = useState<IUsers>({
         username: "",
         password: ""
     })
+
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         let name = e.target.name
         let uppdate = ({ ...user, [name]: e.target.value })
@@ -21,7 +32,9 @@ export function Login() {
     function logIn() {
         axios.post<IUsers[]>("http://localhost:3001/user", user)
             .then((response) => {
+                console.log("vad får bi?", response.data)
                 if (response.status === 201) {
+                    localStorage.setItem("token", JSON.stringify(response.data))
                     nav("/ooak9")
                 }
                 setWrong(true)

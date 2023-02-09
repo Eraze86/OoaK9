@@ -15,5 +15,8 @@ const UserSchema = mongoose.Schema({
   phone: {
     type: Number
   }
+},
+{
+  versionkey: false 
 });
 module.exports = mongoose.model("user", UserSchema);

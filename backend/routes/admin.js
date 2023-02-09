@@ -3,10 +3,12 @@ var router = express.Router();
 var path = require("path");
 const cors = require("cors");
 router.use(cors());
-const content = require("../content.json");
+const contentModel = require("../models/content-model");
 const userModel = require("../models/user-model");
 bcrypt = require("bcrypt");
 const saltRounds = 10;
+const jwt = require("jsonwebtoken");
+const secret = "u94utjjsj673jngmdg"
 
 //get user and password, check user, compare krypted password. if true, logg in, if not, try again
 router.post("/user", async function (req, res, next) {
@@ -16,26 +18,42 @@ router.post("/user", async function (req, res, next) {
     if (user === null) {
       res.send("ingen användare");
     }
-
     bcrypt.compare(password, user.password, function (err, result) {
       if (result === true) {
-        res.status(201).json("Ok");
+        const token = jwt.sign({ username }, secret);
+    
+        res.status(201).json(token);
+      
       }
       if (result === false) {
         res.send("Not valid");
       }
     });
   } catch (error) {
-    res.status(403);
+    res.status(error);
     return;
   }
 });
 
 /* GET home page. */
-router.get("/content", function (req, res, next) {
-  res.send(content);
-  //  console.log("vad skickas ",content)
+router.get("/", async function (req, res, next) {
+  const getCourses = await contentModel.find();
+    res.json(getCourses)
+ 
 });
+router.put('/edit', async function(req, res, next) {
+  try{
+  console.log("req", req.body)
+    const { _id, name, text, img} = req.body
+      await contentModel.findByIdAndUpdate({_id:_id},{ $set:{name:name,text:text,img:img}})
+      res.status(201).json("content is updated")
+    
+    } catch(error){
+      console.log("fel", error)
+      res.status(error)
+      return
+    }
+})
 
 // router.post("/conent/id", function (req, res, next) {});
 

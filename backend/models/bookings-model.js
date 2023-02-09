@@ -39,5 +39,9 @@ const BookingSchema = mongoose.Schema({
         type:Boolean,
         required: true
     }
+},
+{
+
+    versionkey: false 
 })
 module.exports = mongoose.model("booking", BookingSchema)

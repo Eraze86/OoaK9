@@ -3,7 +3,6 @@ import { ICourses } from "../module/ICourses";
 import axios from "axios";
 import { BookingChanges } from "../module/BookingChanges";
 import { IBookingProps } from "../module/IBookingProps";
-import { IBookCourse } from "../module/IBookCourse";
 
 export function EditBooking(props: IBookingProps) {
     const standardProps = new BookingChanges(
@@ -46,7 +45,7 @@ export function EditBooking(props: IBookingProps) {
         let uppdate = ({ ...changes, course: e })
         setChanges(uppdate)
         setCourse(e)
-        courses.some((course) => course.name === e)
+        courses.some((course) => course.course === e)
         setShowDates(true)
     }
 
@@ -85,8 +84,8 @@ export function EditBooking(props: IBookingProps) {
                     {courses.map((d: ICourses, i: number) => {
                         //kolla om några tider är fulla (antal platser), printa ut de som finns
                         return (
-                            <option key={i} value={d.name} className="mx-2">
-                                {d.name},
+                            <option key={i} value={d.course} className="mx-2">
+                                {d.course},
                             </option>)
                     })}
                 </select>
@@ -94,7 +93,7 @@ export function EditBooking(props: IBookingProps) {
                     <select className="border md:w-96 my-2" onChange={(e) => { HandelDate(e.target.value) }} >
                         <option>Välj datum</option>
                         {courses.map((c: ICourses, i: number) => {
-                            if (c.name === course)
+                            if (c.course === course)
                                 return (<>
 
                                     {c.dates.map((d, i: number) => {
