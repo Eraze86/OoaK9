@@ -1,7 +1,16 @@
 # OoaK9
 
-Im creating a website for my sister as an exjob. 
-She is a dog trainer and whats the site so costumers can find her and the information. Costumers can also book courses and private lessons thru the website. 
+I have created a website for my sister as an exjob. 
+My sister is a dog trainer on the side, and needed a site for all the information. I also thought she needed a bookingsystem, and an admin vue.
+In the bookings, costumers can choose a course and then read more aboute it, choose a date with time, and fill in a form. Hit send and this creates the booking. It also send to backend -1 on avalible spots on that course and date.
+
+In the admin yuo can se all the bookings and also handle what courses you whant. Add a course, the add dates and spots to that specifik course. Also change and delete. 
+Bookings can aslo be deleted and changed. 
+In admin you can also change the content of the first page, policy, private coaching and aboute site. Sometimes things need to be added or changed :)
+The design is still under procces, getting some tusch ups from my sister. she has the last word of course
+In contact and private coaching, when the form is filled and sent the costumer gets a mial with the information, and so do admin, witch is me for the moment.
+
+
 
 # Get started
 
