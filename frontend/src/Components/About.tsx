@@ -28,8 +28,8 @@ export function About() {
     return (<>
         <section className="flex flex-col md:flex-row md:justify-between">
             {printContent}
-            <article className=" p-2 md:w-1/4 md:pt-16">
-                <img className="" src={AbouteImg} />
+            <article className=" p-2 md:w-2/6 md:pt-16">
+                <img src={AbouteImg} />
             </article>
         </section>
     </>)

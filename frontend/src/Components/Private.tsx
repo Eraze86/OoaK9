@@ -56,7 +56,7 @@ export function Private() {
 
             <article className=" p-2" >
                 <p>Fyll i uppgifterna nedanför och berätta lite vad du är intresserad av, så kommer jag att kontakta dig.</p><br />
-                <form id="contact-form"onSubmit={sendMail}>
+                <form id="contact-form" onSubmit={sendMail}>
                     <label>Namn:</label><br />
                     <input className="border w-full" name="user_name" placeholder="John Doe" ></input><br />
                     <label>E-mail:</label><br />
