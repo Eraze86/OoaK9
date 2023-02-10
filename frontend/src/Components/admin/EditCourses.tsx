@@ -72,8 +72,9 @@ export function EditCourses() {
 
     return (<>
         <section>
-            <article className="w-full flex justify-between items-center">
-                <button className=" w-48 " onClick={() => { setAddCourse(true) }}>Lägg till ny kurs</button><div><input className="h-6 w-48 mr-2" /><button className="w-16 h-6 m-0 font-normal p-0 pl-2">Sök</button></div>
+            <article className="w-full flex flex-col md:flex-row md:justify-between md:items-center">
+                <button className=" w-48 " onClick={() => { setAddCourse(true) }}>Lägg till ny kurs</button>
+                <div><input className="h-6 w-48 mr-2" /><button className="w-16 h-6 m-0 font-normal p-0 pl-2">Sök</button></div>
             </article>
             <article>
                 <h1>Kurser</h1>
@@ -92,7 +93,7 @@ export function EditCourses() {
             </section></>}
         {add && <>
             <section className="m-auto w-screen h-full fixed top-0  backdrop-blur ">
-                <article className=" m-auto p-6 border-2 w-full min-h-[70%] md:h-[70%] md:w-4/6 bg-white  relative  top-28  text-sm">
+                <article className=" m-auto p-6 border-2 w-full min-h-[80%] md:h-[70%] md:w-4/6 bg-white  relative  top-28  text-sm">
                 <AddDates  {...editDates} />
                 </article>
             </section></>}

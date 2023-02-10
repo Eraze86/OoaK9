@@ -117,10 +117,6 @@ export function EditBooking(props: IBookingProps) {
             <div className="mx-4">
                 <p className="mt-4 text-sm font-bold">Bokningen har blivit ändrad</p>
                 <ul className="grid grid-cols-4 grid-flow-col">
-                    <li>Kurs: <p>{changes.course}</p></li>
-                    <li>Datum: <p>{changes.date}</p></li>
-                    <li>Mail: <p>{changes.mail}</p></li>
-                    <li>Telnr:<p>{changes.phone}</p></li>
                 </ul>
             </div>
         </>}
