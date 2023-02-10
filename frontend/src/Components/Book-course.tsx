@@ -5,6 +5,7 @@ import courseImg from "../img/11.jpg"
 import { IBookCourse } from "./module/IBookCourse";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import emailjs from '@emailjs/browser';
 
 export function BookCourse() {
     const nav = useNavigate();
@@ -84,7 +85,6 @@ export function BookCourse() {
     //if gdpr is checked, and all the required is filled in, send the booking    
     function sendBooking(e: any) {
         e.preventDefault();
-
         axios.post<IBookCourse>("https://ooak9.onrender.com/bookings/add", bookCourse)
             .then((response) => {
                 if (response.status === 201) {
@@ -93,6 +93,18 @@ export function BookCourse() {
                 }
             })
     }
+
+    // function sendMail(e: any) {
+    //     e.preventDefault();
+    //     emailjs.sendForm('service_6g23ogx', 'template_91gnzwm', "#contact-form", 'rUfVoHmmdQndKPI86')
+    //       .then((result) => {
+    //         if(result.text === "OK")
+    //           console.log("mail hurra", result.text);
+
+    //       }, (error) => {
+    //        console.log(error)
+    //       });
+    //   }
 
     //send dateid, -1 on spots avalible on that date
     function avalibleSpots() {
@@ -136,7 +148,7 @@ export function BookCourse() {
                                 )}
                             </select>
                         </div>
-                    </div>
+                     </div>
                 </article>
             )
     })

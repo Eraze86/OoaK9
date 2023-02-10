@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { ICourses } from "../module/ICourses"
 import { IDatesProps } from "../module/IDatesProps";
 import { AddCourse } from "./AddCourse";
@@ -14,6 +14,9 @@ export function EditCourses() {
     const [addCourse, setAddCourse] = useState(false)
     const [editTheCourse, setEditTheCourse] = useState(false)
     const [courses, setCourses] = useState<ICourses[]>([])
+    const [searchInput, setSearchInput] = useState({
+
+    });
     const [editCourse, setEditCourse] = useState({
         _id: "",
         course: "",
@@ -74,7 +77,7 @@ export function EditCourses() {
         <section>
             <article className="w-full flex flex-col md:flex-row md:justify-between md:items-center">
                 <button className=" w-48 " onClick={() => { setAddCourse(true) }}>Lägg till ny kurs</button>
-                <div><input className="h-6 w-48 mr-2" /><button className="w-16 h-6 m-0 font-normal p-0 pl-2">Sök</button></div>
+                {/* <div><input placeholder='Sök...' name="find" onChange={search} className="h-6 w-48 mr-2" /><button className="w-16 h-6 m-0 font-normal p-0 pl-2">Sök</button></div> */}
             </article>
             <article>
                 <h1>Kurser</h1>
