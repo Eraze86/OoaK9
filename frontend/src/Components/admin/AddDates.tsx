@@ -11,7 +11,7 @@ export function AddDates(props: IDatesProps) {
         props.course,
         props.dates
     )
-    const [edit] = useState<IDatesProps>(standardProps);
+    const [edit, setEdit] = useState<IDatesProps>(standardProps);
     const [saveDate, setSaveDate] = useState({
         date: "",
         number: 0,
@@ -25,7 +25,7 @@ export function AddDates(props: IDatesProps) {
         date: "",
         number: 0,
     });
-
+console.log("edit",edit)
     //get changes and save to a hook
     function handleDate(e: ChangeEvent<HTMLInputElement>) {
         let name = e.target.name
@@ -45,8 +45,14 @@ export function AddDates(props: IDatesProps) {
             .then((response) => {
                 if (response.status === 201) {
                     setDateSaved(true)
+                    setTimeout(() => {
+                        setDateSaved(false)
+                    }, 1000);
+                   
                 } else {
-                    setActionFailed(true)
+                    setTimeout(() => {
+                        setActionFailed(false)
+                    }, 1000);
                 }
             })
     }
@@ -57,8 +63,17 @@ export function AddDates(props: IDatesProps) {
             .then((response) => {
                 if (response.status === 201) {
                     setDateDeleted(true)
+                    setTimeout(() => {
+                        setDateDeleted(false)
+                    }, 1000);
+                    console.log("datan", response.data)
+                    // setEdit()
                 } else {
                     setActionFailed(true)
+                    setTimeout(() => {
+                        setActionFailed(false)
+                    }, 1000);
+                 
                 }
             })
     }
@@ -66,32 +81,37 @@ export function AddDates(props: IDatesProps) {
     return (<>
         <h4>Kurs: {edit.course}</h4>
         <div className="flex flex-col md:flex-row w-full justify-space">
-            <div className="flex flex-col mr-24 w-full">
+            <div className="flex flex-col mr-24 w-full h-36 overflow-auto">
+            {showSaved && <div className="flex justify-between mb-2">
+                    <div className="flex " ><p className="font-bold" >Datum: </p>  {saveDate.date}</div>
+                    <div className="flex pr-10"><p className="font-bold ">Platser: </p>  {saveDate.number} </div>
+                </div>}
+
                 {edit.dates.map((date, i: number) => {
                     return (
-                        <div className="flex justify-between mb-4" key={i}>
-                            <div className="flex "><p className="font-bold">Datum: </p>  {date.date}</div>
-                            <div className="flex "><p className="font-bold ">Platser: </p>  {date.number}
+                        <ul className="flex justify-between mb-2" key={i}>
+                            <li className="flex "><p className="font-bold">Datum: </p>  {date.date}</li>
+                            <li className="flex "><p className="font-bold ">Platser: </p>  {date.number}
                                 <div className="mx-4 cursor-pointer" onClick={() => { Delete(date) }}>X</div>
-                            </div>
-                        </div>
+                            </li>
+                        </ul>
                     )
                 })}
-
-                <h5>Datum att lägga till</h5>
-                {showSaved && <div className="flex justify-between mb-4">
-                    <div className="flex " ><p className="font-bold" >Datum: </p>  {saveDate.date}</div>
-                    <div className="flex "><p className="font-bold ">Platser: </p>  {saveDate.number} </div>
-                </div>}
-            </div>
+                </div>
+                
+                
+           
 
             <div className=" flex flex-col md:flex ">
-                <h4 className="mt-0">Lägg till datum</h4>
-                <label>Datum</label>
-                <input className="w-48 mr-2" onChange={handleDate} name="date" />
-                <label>Antal platser</label>
-                <input className="w-12" type="number" onChange={handleDate} name="number" />
+                <h5 className="mt-0">Lägg till datum</h5>
+                <div className="flex ">
+                    <div className="flex flex-col"><label>Datum</label>
+                <input className="w-48 mr-2" onChange={handleDate} name="date" /></div>
+                <div className="flex flex-col"><label>Antal platser</label>
+                <input className="w-12" type="number" onChange={handleDate} name="number" /></div>
+                </div>
                 <button className="w-36" onClick={addMore}>Lägg till datum</button>
+               
             </div>
         </div>
         {dateDeleted && <>Datumet har blivit raderat</>}

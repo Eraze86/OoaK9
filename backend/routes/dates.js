@@ -32,7 +32,8 @@ router.get('/', async function(req, res, next) {
   router.delete('/:id', async function(req, res, next) {
     try{
       await datesModel.findByIdAndRemove({_id: req.params.id})
-      res.status(201).json("Booking deleted")
+      let data =  await datesModel.find()
+      res.status(201).json(data)
  
     } catch(error){
       console.log("fel", error)
