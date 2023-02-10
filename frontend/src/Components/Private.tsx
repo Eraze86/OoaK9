@@ -1,12 +1,36 @@
-import {  useState } from "react"
+import {  useEffect, useState } from "react"
 import emailjs from '@emailjs/browser';
 import { useNavigate } from "react-router-dom";
+import { IContent } from "./module/IContent";
+import axios from "axios";
 export function Private() {
 
     const [price, setPrice] = useState(500)
     const [mailSent, setMailSent] = useState(false)
     const [error, setError] = useState(false)
     const nav = useNavigate();
+
+    const [content, setContent] = useState<IContent[]>([])
+
+    useEffect(() => {
+        axios.get<IContent[]>("https://ooak9.onrender.com/")
+            .then((response) => {
+                console.log("content", response.data)
+                setContent(response.data)
+            })
+    }, [])
+    //se if id matches, show right content
+    let printContent = content.map((c: IContent, i: number) => {
+        if (c._id === "63e4a709dae275b3bd4dc6b1") {
+            return (
+                <article key={i} className=" p-2 md:w-2/4">
+                    <h1>{c.name}</h1>
+                    <span dangerouslySetInnerHTML={{ __html: c.text }}></span>
+                    <p className="font-medium">Pris: {price} kr/timmen</p><br />
+                </article>
+            )
+        }
+    })
 
     function sendMail(e: any) {
  
@@ -27,21 +51,9 @@ export function Private() {
 
     return (<>
         <section>
-            <article className=" p-2">
-            <h1>Privatcoaching</h1>
+            {printContent}
+       
 
-                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br />
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam<br /><br />
-                </span>
-                <p className="font-medium">Pris: {price} kr/timmen</p><br />
-
-            </article>
             <article className=" p-2" >
                 <p>Fyll i uppgifterna nedanför och berätta lite vad du är intresserad av, så kommer jag att kontakta dig.</p><br />
                 <form id="contact-form"onSubmit={sendMail}>

@@ -23,11 +23,10 @@ export function MoreDetails(props: IMoreDetailsProps) {
 
     //check for id, if matching = delete, show its been deleted. If not, tell something has gone wrong
     function Delete() {
-        axios.delete<IMoreDetailsProps>("http://localhost:3001/bookings/" + detail._id)
+        axios.delete<IMoreDetailsProps>("https://ooak9.onrender.com/bookings/" + detail._id)
             .then((response) => {
                 if (response.status === 201) {
                     setDeleted(true)
-
                 } else {
                     setNotDeleted(true)
                 }

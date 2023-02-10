@@ -5,9 +5,11 @@ import { IDatesProps } from "../module/IDatesProps";
 import { AddCourse } from "./AddCourse";
 import { AddDates } from "./AddDates";
 import { EditCourse } from "./EditCourse";
+import { useNavigate } from "react-router-dom";
 
 export function EditCourses() {
 
+    const nav = useNavigate();
     const [add, setAdd] = useState(false)
     const [addCourse, setAddCourse] = useState(false)
     const [editTheCourse, setEditTheCourse] = useState(false)
@@ -30,9 +32,14 @@ export function EditCourses() {
             }]
         }
     )
+    
+    useEffect(() => {
+        let local = localStorage.getItem("token")
+        if (!local) { nav("/admin") }
+    }, [])
 
     useEffect(() => {
-        axios.get<ICourses[]>("http://localhost:3001/courses")
+        axios.get<ICourses[]>("https://ooak9.onrender.com/courses")
             .then((response) => {
                 setCourses(response.data)
             })

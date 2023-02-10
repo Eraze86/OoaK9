@@ -5,15 +5,15 @@ import logoImg from "../../img/logo.png";
 export function LayoutAdmin() {
 
     const [isOpen, setIsOpen] = useState(false)
+
     function menuClick() {
         setIsOpen(false)
     }
     function logOut(){
        localStorage.clear();
-
     }
-    return (<>
 
+    return (<>
         <header>
             <nav className="hidden bg-white z-10 relative h-28 lg:flex lg:justify-between items-center">
                 <img className="h-full" src={logoImg} />
@@ -42,10 +42,7 @@ export function LayoutAdmin() {
                         <a href="/admin" className="links" onClick={menuClick}>Logga ut</a>
                     </div>
                 </>}
-            
-
         </header>
-
         <Outlet />
     </>
     )

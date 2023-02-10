@@ -9,12 +9,7 @@ export function Login() {
     //check if token, keep loggedin
     useEffect(() => {
         let local = localStorage.getItem("token")
-        if (local) {
-            nav("/ooak9")
-            }
-            
-          
- 
+        if (local) {nav("/ooak9")}
     },[])
     
     const [wrong, setWrong] = useState(false)
@@ -30,9 +25,8 @@ export function Login() {
     }
     //get username and password, send to server. if status 201, send to admin site
     function logIn() {
-        axios.post<IUsers[]>("http://localhost:3001/user", user)
+        axios.post<IUsers[]>("https://ooak9.onrender.com/user", user)
             .then((response) => {
-              
                 if (response.status === 201) {
                     localStorage.setItem("token", JSON.stringify(response.data))
                     nav("/ooak9")
@@ -51,8 +45,8 @@ export function Login() {
                 <input className="w-full" type="text" onChange={handleChange} name="username" value={user.username} />
                 <label>Lösenord:</label>
                 <input className="w-full" type="password" onChange={handleChange} name="password" value={user.password} />
-
             </form>
+            
             {wrong && <>
             <div className="text-sm m-1">
                 Fel lösenord eller användarnamn, vänligen försök igen
