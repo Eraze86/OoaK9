@@ -25,7 +25,6 @@ export function AddDates(props: IDatesProps) {
         date: "",
         number: 0,
     });
-console.log("edit",edit)
     //get changes and save to a hook
     function handleDate(e: ChangeEvent<HTMLInputElement>) {
         let name = e.target.name
@@ -34,7 +33,7 @@ console.log("edit",edit)
     }
     //get the dates, and presave them to a list.
     function addMore() {
-        let newDate = { date: addDate.date, number: addDate.number }
+        let newDate = { ...saveDate, date: addDate.date, number: addDate.number }
         setShowSaved(true)
         setSaveDate(newDate)
     }
@@ -66,8 +65,7 @@ console.log("edit",edit)
                     setTimeout(() => {
                         setDateDeleted(false)
                     }, 1000);
-                    console.log("datan", response.data)
-                    // setEdit()
+
                 } else {
                     setActionFailed(true)
                     setTimeout(() => {

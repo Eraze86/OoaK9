@@ -97,14 +97,15 @@ export function Content(props: IContent) {
         }}
       />
             </article>
-            <article className="p-2">
+            {/* <article className="p-2">
                 <p>Media:</p>
                 <div>{edit.img}</div>
                 <input type="file" name="img" onChange={handleChange} />
-            </article>
+            </article> */}
             {savedEdit && <><p className="mt-4 text-sm font-bold">Ändringen är sparad</p></>}
             {notSaved && <><p className="absolute mt-4 font-bold">Något gick fel, försök igen</p></>}
-            <button onClick={saveContent}>Ändra</button>
+            <button className="w-48 " onClick={saveContent}>Ändra</button>
+            <button className="w-48 mx-4" onClick={() =>  nav("/admin")}>Tillbaka</button>
             {saveChanges && <>
                 <section className="m-auto w-screen h-full fixed left-0 top-0 z-10 backdrop-blur ">
                 <article className=" m-auto p-6 border-2 w-96  z-20 bg-white  relative  top-28  text-sm">
