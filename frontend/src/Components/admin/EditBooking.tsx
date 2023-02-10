@@ -28,9 +28,8 @@ export function EditBooking(props: IBookingProps) {
     const [savedEdit, setSavedEdit] = useState(false);
     const [notSaved, setNotSaved] = useState(false);
 
-
     useEffect(() => {
-        axios.get<ICourses[]>("http://localhost:3001/courses")
+        axios.get<ICourses[]>("https://ooak9.onrender.com/courses")
             .then((response) => {
                 setCourses(response.data)
             })
@@ -55,19 +54,14 @@ export function EditBooking(props: IBookingProps) {
     }
 
     function Save() {
-        console.log("ändringarna", changes)
-        axios.put<IBookingProps>("http://localhost:3001/bookings/change", changes)
+        axios.put<IBookingProps>("https://ooak9.onrender.com/bookings/change", changes)
             .then((response) => {
                 if (response.status === 201) {
-
-                    console.log("tillbaka", response.data)
-
                     setSavedEdit(true)
                 } else {
                     setNotSaved(true)
                 }
             })
-
     }
 
     return (<>
@@ -95,7 +89,6 @@ export function EditBooking(props: IBookingProps) {
                         {courses.map((c: ICourses, i: number) => {
                             if (c.course === course)
                                 return (<>
-
                                     {c.dates.map((d, i: number) => {
                                         if (d.number > 0)
                                             return (
@@ -129,7 +122,6 @@ export function EditBooking(props: IBookingProps) {
                     <li>Mail: <p>{changes.mail}</p></li>
                     <li>Telnr:<p>{changes.phone}</p></li>
                 </ul>
-
             </div>
         </>}
         {notSaved && <>

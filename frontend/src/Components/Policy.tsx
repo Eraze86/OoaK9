@@ -6,7 +6,7 @@ export function Policy(){
     const [content, setContent] = useState<IContent[]>([])
 
     useEffect(() => {
-        axios.get<IContent[]>("http://localhost:3001/")
+        axios.get<IContent[]>("https://ooak9.onrender.com/")
         .then((response) => {    
           console.log("content", response.data)
             setContent(response.data) 

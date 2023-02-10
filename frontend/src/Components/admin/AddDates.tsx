@@ -25,28 +25,24 @@ export function AddDates(props: IDatesProps) {
         date: "",
         number: 0,
     });
-    
+
     //get changes and save to a hook
     function handleDate(e: ChangeEvent<HTMLInputElement>) {
         let name = e.target.name
         let uppdate = ({ ...addDate, [name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value })
-        console.log("addDate", uppdate)
         setAddDate(uppdate)
     }
     //get the dates, and presave them to a list.
     function addMore() {
         let newDate = { date: addDate.date, number: addDate.number }
-        console.log("new", newDate)
         setShowSaved(true)
         setSaveDate(newDate)
-   
     }
 
     //get the list with new dates and save to the database.  
     function Save() {
-        axios.post<ICourses>("http://localhost:3001/courses/" + edit._id, saveDate)
+        axios.post<ICourses>("https://ooak9.onrender.com/courses/" + edit._id, saveDate)
             .then((response) => {
-                console.log("respons", response.data)
                 if (response.status === 201) {
                     setDateSaved(true)
                 } else {
@@ -57,9 +53,8 @@ export function AddDates(props: IDatesProps) {
 
     //delete date
     function Delete(date: any) {
-        axios.delete<ICourses>("http://localhost:3001/dates/"+date._id)
+        axios.delete<ICourses>("https://ooak9.onrender.com/dates/" + date._id)
             .then((response) => {
-                console.log("respons", response.data)
                 if (response.status === 201) {
                     setDateDeleted(true)
                 } else {
@@ -84,14 +79,10 @@ export function AddDates(props: IDatesProps) {
                 })}
 
                 <h5>Datum att lägga till</h5>
-     
-                   {showSaved && <div  className="flex justify-between mb-4">
-                        <div className="flex " ><p className="font-bold" >Datum: </p>  {saveDate.date}</div>
-                        <div className="flex "><p className="font-bold ">Platser: </p>  {saveDate.number} </div>
-                    </div>} 
-               
-
-
+                {showSaved && <div className="flex justify-between mb-4">
+                    <div className="flex " ><p className="font-bold" >Datum: </p>  {saveDate.date}</div>
+                    <div className="flex "><p className="font-bold ">Platser: </p>  {saveDate.number} </div>
+                </div>}
             </div>
 
             <div className=" flex flex-col md:flex ">

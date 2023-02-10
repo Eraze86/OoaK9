@@ -7,7 +7,7 @@ export function Courses() {
     const [courses, setCourses] = useState<ICourses[]>([])
 //save courses to localstorages
     useEffect(() => {
-            axios.get<ICourses[]>("http://localhost:3001/courses")
+            axios.get<ICourses[]>("https://ooak9.onrender.com/courses")
             .then((response) => {    
                 setCourses(response.data) 
                 localStorage.setItem("courses", JSON.stringify(response.data))

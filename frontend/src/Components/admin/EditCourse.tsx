@@ -33,17 +33,16 @@ export function EditCourse(props: ICoursesProps) {
         let uppdate = ({ ...changes, [name]: e.target.value })
         setChanges(uppdate)
     }
-    function Delete(){
-        axios.delete<ICoursesProps>("http://localhost:3001/courses/"+edit._id)
-        .then((response) => {
-            if (response.status === 201) {
-               console.log("raderat")
-            } else {
-                console.log("något gick fel")
-            }
-        })
+
+    function Delete() {
+        axios.delete<ICoursesProps>("http://localhost:3001/courses/" + edit._id)
+            .then((response) => {
+                if (response.status === 201) {
+                    console.log("raderat")
+                }
+            })
     }
-console.log("kurs", edit.course)
+
     function Save() {
         axios.put<ICoursesProps>("http://localhost:3001/courses/change", changes)
             .then((response) => {
@@ -71,8 +70,8 @@ console.log("kurs", edit.course)
                     </div>
                     <div className="my-6">
                         {edit.description}<br />
-                        Ändra: <br/>
-                        <textarea className="h-20 border w-full" name="description"  onChange={handleDes} />
+                        Ändra: <br />
+                        <textarea className="h-20 border w-full" name="description" onChange={handleDes} />
                     </div>
                     <div className="my-6">
                         <label className="font-medium">Img </label>
@@ -81,14 +80,14 @@ console.log("kurs", edit.course)
                     </div>
                 </form>
             </div>
-   
-        {savedEdit && <><p className="mt-4 text-sm font-bold">Bokningen har blivit ändrad</p></>}
-        {notSaved && <><p className="absolute mt-4 font-bold">Något gick fel, försök igen</p></>}
-        <div className="absolute bottom-2">
-            <button disabled={savedEdit === true} className="w-24 lg:w-48  mx-6  disabled:bg-gray-300" onClick={Save}>Spara</button>
-            <button className="w-24 lg:w-48  mx-6 " onClick={() => window.location.reload()}>Stäng</button>
-            <button className="w-24 lg:w-48  mx-6 bg-red-600" onClick={Delete}>Radera</button>
-        </div>
+
+            {savedEdit && <><p className="mt-4 text-sm font-bold">Bokningen har blivit ändrad</p></>}
+            {notSaved && <><p className="absolute mt-4 font-bold">Något gick fel, försök igen</p></>}
+            <div className="absolute bottom-2">
+                <button disabled={savedEdit === true} className="w-24 lg:w-48  mx-6  disabled:bg-gray-300" onClick={Save}>Spara</button>
+                <button className="w-24 lg:w-48  mx-6 " onClick={() => window.location.reload()}>Stäng</button>
+                <button className="w-24 lg:w-48  mx-6 bg-red-600" onClick={Delete}>Radera</button>
+            </div>
         </article>
     </>)
 }

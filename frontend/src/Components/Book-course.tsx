@@ -84,8 +84,8 @@ export function BookCourse() {
     //if gdpr is checked, and all the required is filled in, send the booking    
     function sendBooking(e: any) {
         e.preventDefault();
-        console.log("vad skickas", bookCourse)
-        axios.post<IBookCourse>("http://localhost:3001/bookings/add", bookCourse)
+
+        axios.post<IBookCourse>("https://ooak9.onrender.com/bookings/add", bookCourse)
             .then((response) => {
                 if (response.status === 201) {
                     setBookingCreated(true)
@@ -96,7 +96,7 @@ export function BookCourse() {
 
     //send dateid, -1 on spots avalible on that date
     function avalibleSpots() {
-        axios.put<ICourses>("http://localhost:3001/dates/edit", { dateid: dateId, })
+        axios.put<ICourses>("https://ooak9.onrender.com/dates/edit", { dateid: dateId, })
             .then((response) => {
                 if (response.status === 201) {
                     console.log("Number changed")

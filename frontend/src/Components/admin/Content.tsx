@@ -25,7 +25,6 @@ export function Content(props: IContent) {
         img: edit.img
     })
 
-
     //get value from input, save to hook
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         let name = e.target.name
@@ -34,24 +33,17 @@ export function Content(props: IContent) {
     }
 
     //get value from textarea, save to hook
-    function handleText(editorRef: any) {
-     
-        // let name = e.target.name
-        // let uppdate = ({ ...changes, [name]: e.target.value })
-        // setChanges(uppdate)
-    }
      function saveContent(){
         let uppdate = ({ ...changes, text: editorRef.current.getContent() })
          setChanges(uppdate)
         console.log("uppdateringen", uppdate)
        setSaveChanges(true)
-       
     }
 
     //send changes , show right messenge 
     function Save() {
     console.log("ändringarna",changes)
-        axios.put<IContent>("http://localhost:3001/edit", changes)
+        axios.put<IContent>("https://ooak9.onrender.com/edit", changes)
             .then((response) => {
                 if (response.status === 201) {
                     setSavedEdit(true)
@@ -71,14 +63,10 @@ export function Content(props: IContent) {
                 <Editor
         apiKey="6hqytudlu870wzja968yokx4myr1nzyi3rr9f1424qxxbdp2"
         onInit={(evt, editor) => (editorRef.current = editor)}
-       
         initialValue={edit.text}
-      
-        onEditorChange={handleText}
         init={{
           height: 400,
           menubar: false,
-
           plugins: [
             "advlist",
             "autolink",
@@ -99,7 +87,6 @@ export function Content(props: IContent) {
             "help",
             "wordcount",
           ],
-
           toolbar:
             "undo redo | blocks | " +
             "bold italic forecolor | alignleft aligncenter " +

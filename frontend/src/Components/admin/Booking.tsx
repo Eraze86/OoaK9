@@ -3,8 +3,11 @@ import { useEffect, useState } from "react"
 import { IBooked } from "../module/IBooked"
 import { EditBooking } from "./EditBooking"
 import { MoreDetails } from "./MoreDetails"
+import { useNavigate } from "react-router-dom";
 
 export function Booking() {
+    
+    const nav = useNavigate();
     const [bookings, setBookings] = useState<IBooked[]>([])
     const [editBooking, setEditBooking] = useState(false)
     const [seeDetails, setSeeDetails] = useState(false)
@@ -30,7 +33,12 @@ export function Booking() {
     })
 
     useEffect(() => {
-        axios.get<IBooked[]>("http://localhost:3001/bookings")
+        let local = localStorage.getItem("token")
+        if (!local) { nav("/admin") }
+    }, [])
+
+    useEffect(() => {
+        axios.get<IBooked[]>("https://ooak9.onrender.com/bookings")
             .then((response) => {
                 setBookings(response.data)
                 console.log("data", response.data)
