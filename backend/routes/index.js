@@ -5,7 +5,7 @@ const cors = require("cors");
 router.use(cors());
 const contentModel = require("../models/content-model");
 const userModel = require("../models/user-model");
-bcrypt = require("bcrypt");
+bcrypt = require("bcryptjs");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 const secret = "u94utjjsj673jngmdg"
