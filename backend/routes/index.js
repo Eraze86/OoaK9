@@ -18,7 +18,8 @@ router.post("/user", async function (req, res, next) {
     if (user === null) {
       res.send("ingen användare");
     }
-    bcrypt.compare(password, user.password, function (err, result) {
+    bcrypt.hash(user.password, saltRounds, function(err, hash){})
+    bcrypt.compare(hash, user.password, function (err, result) {
       if (result === true) {
         const token = jwt.sign({ username }, secret);
     
